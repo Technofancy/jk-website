@@ -27,8 +27,8 @@ jobs:
     - name: Deploy to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.1.0  # This action uploads your build to cPanel
       with:
-        ftp-server: ${{ secrets.FTP_SERVER }}  # Your FTP server (e.g., ftp.jarokilo.org.np)
-        ftp-username: ${{ secrets.FTP_USERNAME }}  # FTP username (jarokilonp)
-        ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTP password
+        server: ${{ secrets.FTP_SERVER }}  # Correct input: FTP server (e.g., ftp.jarokilo.org.np)
+        username: ${{ secrets.FTP_USERNAME }}  # Correct input: FTP username (jarokilonp)
+        password: ${{ secrets.FTP_PASSWORD }}  # Correct input: FTP password
         local-dir: ./build  # Path to the local directory you want to upload (the React build folder)
-        remote-dir: /public_html/react  # Directory on the server where the app will be uploaded
+        server-dir: /public_html/react  # Correct input: Directory on the server where the app will be uploaded
