@@ -31,4 +31,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}  # Correct input: FTP username (jarokilonp)
         password: ${{ secrets.FTP_PASSWORD }}  # Correct input: FTP password
         local-dir: ./build/  # Path to the local directory you want to upload (the React build folder)
-        server-dir: /public_html/react  # Correct input: Directory on the server where the app will be uploaded
+        server-dir: /public_html/react/  # Correct input: Directory on the server where the app will be uploaded
