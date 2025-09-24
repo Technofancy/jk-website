@@ -1,0 +1,34 @@
+name: Build and Deploy React App to cPanel via FTP
+
+on:
+  push:
+    branches:
+      - main  # This will trigger the deployment whenever you push to the "main" branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # This checks out your code from the GitHub repository
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2  # This installs Node.js on the runner
+      with:
+        node-version: '22.19.0'  # Replace with the version you're using
+
+    - name: Install dependencies
+      run: npm install  # Installs all dependencies listed in package.json
+
+    - name: Build React app
+      run: npm run build  # Builds the production version of your React app
+
+    - name: Deploy to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0  # This action uploads your build to cPanel
+      with:
+        ftp-server: ${{ secrets.FTP_SERVER }}  # Your FTP server (e.g., ftp.jarokilo.org.np)
+        ftp-username: ${{ secrets.FTP_USERNAME }}  # FTP username (jarokilonp)
+        ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTP password
+        local-dir: ./build  # Path to the local directory you want to upload (the React build folder)
+        remote-dir: /public_html/react  # Directory on the server where the app will be uploaded
