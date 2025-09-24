@@ -36,4 +36,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}  # FTP username (jarokilonp)
         password: ${{ secrets.FTP_PASSWORD }}  # FTP password
         local-dir: ./dist/  # Path to the local directory (ensure it ends with "/")
-        server-dir: /public_html/react/  # Correct input: Directory on the server where the app will be uploaded (ensure it ends with "/")
+        server-dir: /  # Correct input: Directory on the server where the app will be uploaded (ensure it ends with "/")
