@@ -16,19 +16,24 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2  # This installs Node.js on the runner
       with:
-        node-version: '22.19.0'  # Replace with the version you're using
+        node-version: '22.19.0'  # Vite is compatible with Node.js 16 (adjust if you need a different version)
 
     - name: Install dependencies
       run: npm install  # Installs all dependencies listed in package.json
 
-    - name: Build React app
-      run: npm run build  # Builds the production version of your React app
+    - name: Build React app using Vite
+      run: npm run build  # Builds the production version of your React app using Vite
+
+    - name: Debug dist folder existence
+      run: |
+        echo "Listing files in the dist directory:"
+        ls -alh ./dist
 
     - name: Deploy to cPanel via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.1.0  # This action uploads your build to cPanel
       with:
-        server: ${{ secrets.FTP_SERVER }}  # Correct input: FTP server (e.g., ftp.jarokilo.org.np)
-        username: ${{ secrets.FTP_USERNAME }}  # Correct input: FTP username (jarokilonp)
-        password: ${{ secrets.FTP_PASSWORD }}  # Correct input: FTP password
-        local-dir: ./build/  # Path to the local directory you want to upload (the React build folder)
-        server-dir: /public_html/react/  # Correct input: Directory on the server where the app will be uploaded
+        server: ${{ secrets.FTP_SERVER }}  # FTP server (e.g., ftp.jarokilo.org.np)
+        username: ${{ secrets.FTP_USERNAME }}  # FTP username (jarokilonp)
+        password: ${{ secrets.FTP_PASSWORD }}  # FTP password
+        local-dir: ./dist/  # Path to the local directory (ensure it ends with "/")
+        server-dir: /public_html/react/  # Correct input: Directory on the server where the app will be uploaded (ensure it ends with "/")
