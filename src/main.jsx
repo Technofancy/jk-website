@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import "./i18n"; // Initialize i18n
 
 AOS.init();
 
