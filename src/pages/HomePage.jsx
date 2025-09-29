@@ -8,10 +8,10 @@ export default function HomePage() {
   const { t } = useTranslation();
 
   // function to convert English numbers to Nepali numbers
-  const toNepaliNumber = (num) => {
-    const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return num.toString().split('').map(d => nepaliDigits[parseInt(d)]).join('');
-  };
+  // const toNepaliNumber = (num) => {
+  //   const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+  //   return num.toString().split('').map(d => nepaliDigits[parseInt(d)]).join('');
+  // };
 
   const programs = [
     {
@@ -60,7 +60,7 @@ export default function HomePage() {
               <h2 className="text-4xl font-bold mb-6 py-4 text-gray-100">{t("about.title")}</h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-100 0">{t("about.vision")}</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-100">{t("about.vision")}</h3>
                   <p className="text-gray-300">{t("about.visionText")}</p>
                 </div>
                 <div>
@@ -70,12 +70,12 @@ export default function HomePage() {
               </div>
               <Link 
                 to="/about" 
-                className="inline-block mt-6 bg-red-600 dark:bg-red-500 text-white dark:text-gray-100 px-6 py-3 rounded-lg hover:bg-red-700 dark:hover:bg-red-400 transition-colors duration-200"
+                className="inline-block mt-6 bg-yellow-300 text-red-500 px-6 py-3 m-2 rounded-lg hover:bg-yellow-400 font-bold transition-colors duration-200"
               >
                 {t("hero.cta")}
               </Link>
             </div>
-            <div className="bg-white border-4 border-red-500 p-8 rounded-lg transition-colors duration-300">
+            <div className="bg-white border-l-4 border-yellow-500 p-8 rounded-lg transition-colors duration-300">
               <div className="text-center">
                 {/* <div className="text-6xl mb-4">🏛️</div> */}
                 <h3 className="text-2xl font-bold text-red-500 mb-4">
@@ -90,17 +90,17 @@ export default function HomePage() {
         </section>
 
         {/* Programs Preview */}
-        <section className="max-w-6xl mx-auto px-6" data-aos="fade-up" data-aos-delay="200">
+        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 max-w-6xl mx-auto px-6" data-aos="fade-up" data-aos-delay="200">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900 ">{t("programs.title")}</h2>
-            <p className="text-lg text-gray-700 ">हाम्रा मुख्य कार्यक्रमहरूको झलक</p>
+            <h2 className="text-4xl font-bold text-gray-100 p-4">{t("programs.title")}</h2>
+            <p className="text-lg text-gray-300">हाम्रा मुख्य कार्यक्रमहरूको झलक</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {programs.map((program, index) => (
               <div 
                 key={index} 
-                className="bg-white  p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-red-500"
+                className="bg-white  p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 mb-2"
                 data-aos="fade-up" 
                 data-aos-delay={200 + index * 50}
               >
@@ -119,7 +119,7 @@ export default function HomePage() {
         </section>
 
         {/* Statistics Section */}
-        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 dark:bg-red-700 text-white py-16 transition-colors duration-300" data-aos="fade-up" data-aos-delay="400">
+        {/* <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 dark:bg-red-700 text-white py-16 transition-colors duration-300" data-aos="fade-up" data-aos-delay="400">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div>
@@ -140,7 +140,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Call to Action */}
         <section className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="300">

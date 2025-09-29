@@ -39,13 +39,13 @@ export default function Hero() {
         <div className="flex justify-center md:justify-start gap-4">
           <Link
             to="/programs"
-            className="bg-yellow-300 dark:bg-yellow-400 text-red-700 dark:text-red-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-yellow-400 dark:hover:bg-yellow-300 transition-colors duration-200"
+            className="bg-yellow-300 text-red-700  px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-yellow-400 dark:hover:bg-yellow-300 transition-colors duration-200"
           >
             {i18n.language === "np" ? "कार्यहरु हेर्नुहोस्" : t("hero.explore")}
           </Link>
           <Link
             to="/about"
-            className="border-2 border-yellow-300 dark:border-yellow-200 text-yellow-300 dark:text-yellow-200 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300 dark:hover:bg-yellow-200 hover:text-red-700 dark:hover:text-red-800 transition-colors duration-200"
+            className="border-2 border-yellow-300 text-yellow-300  px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300 dark:hover:bg-yellow-200 hover:text-red-700 dark:hover:text-red-800 transition-colors duration-200"
           >
             {i18n.language === "np" ? "थप जानकारी" : t("hero.cta")}
           </Link>

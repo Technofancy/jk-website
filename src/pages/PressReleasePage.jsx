@@ -10,8 +10,8 @@ export default function PressReleasePage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 space-y-8">
-      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-500 rounded-xl p-2">
+    <div className="max-w-7xl mx-auto p-4 space-y-8 text-white h-screen">
+      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
         प्रेस विज्ञप्ति
       </h1>
 
@@ -24,7 +24,7 @@ export default function PressReleasePage() {
             <div
               key={item.id}
               onClick={() => setSelectedPress(item)}
-              className="cursor-pointer bg-gradient-to-r from-red-500 via-red-300 to-orange-100 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
+              className="cursor-pointer bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
               data-aos="fade-up"
             >
               <h2 className="text-2xl font-semibold mb-1">

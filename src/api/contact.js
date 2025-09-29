@@ -71,8 +71,8 @@ export function getContactInfo() {
       zipCode: '44600',
       country: 'Nepal'
     },
-    phone: '+977-1-XXXXXXX',
-    email: 'info@jarokilofoundation.org',
+    phone: '+977-985-1150300',
+    // email: 'info@jarokilofoundation.org',
     website: 'https://jarokilofoundation.org',
     socialMedia: {
       facebook: 'https://facebook.com/jarokilofoundation',

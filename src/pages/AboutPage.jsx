@@ -59,7 +59,7 @@ export default function AboutPage() {
       
       <div className="space-y-16">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-600 to-orange-500 text-white py-20">
+        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 text-white py-20">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h1 className="text-5xl font-bold mb-6" data-aos="fade-up">
               {t("about.title")}
@@ -74,21 +74,21 @@ export default function AboutPage() {
         </section>
 
         {/* Mission, Vision, Values */}
-        <section className="max-w-6xl mx-auto px-6">
+        <section className="max-w-6xl mx-auto px-6 py-2 bg-gradient-to-r from-red-700 via-red-500 to-orange-300">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-white rounded-lg shadow-lg" data-aos="fade-up">
+            <div className="text-center p-8 bg-white border-l-4 border-yellow-500 rounded-lg shadow-lg" data-aos="fade-up">
               <div className="text-5xl mb-4">🎯</div>
               <h3 className="text-2xl font-bold mb-4 text-red-600">{t("about.mission")}</h3>
               <p className="text-gray-600 leading-relaxed">{t("about.missionText")}</p>
             </div>
             
-            <div className="text-center p-8 bg-white rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+            <div className="text-center p-8 bg-white border-l-4 border-yellow-500 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
               <div className="text-5xl mb-4">👁️</div>
               <h3 className="text-2xl font-bold mb-4 text-red-600">{t("about.vision")}</h3>
               <p className="text-gray-600 leading-relaxed">{t("about.visionText")}</p>
             </div>
             
-            <div className="text-center p-8 bg-white rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="400">
+            <div className="text-center p-8 bg-white border-l-4 border-yellow-500 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="400">
               <div className="text-5xl mb-4">💎</div>
               <h3 className="text-2xl font-bold mb-4 text-red-600">{t("about.values")}</h3>
               <p className="text-gray-600 leading-relaxed">{t("about.valuesText")}</p>
@@ -97,12 +97,12 @@ export default function AboutPage() {
         </section>
 
         {/* Our Story */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 py-16">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div data-aos="fade-right">
-                <h2 className="text-4xl font-bold mb-6 text-gray-800">हाम्रो कथा</h2>
-                <div className="space-y-4 text-gray-600 leading-relaxed">
+                <h2 className="text-4xl font-bold mb-6 text-gray-100">हाम्रो कथा</h2>
+                <div className="space-y-4 text-gray-300 leading-relaxed">
                   <p>
                     जरो किलो प्रतिष्ठान नेपालको स्थापना २०७४ सालमा भएको थियो। यो संस्था नेपालको सामाजिक, 
                     शैक्षिक र सांस्कृतिक विकासमा योगदान पुर्याउने उद्देश्यले स्थापना गरिएको हो।
@@ -117,13 +117,13 @@ export default function AboutPage() {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-red-100 to-orange-100 p-8 rounded-lg" data-aos="fade-left">
+              <div className="bg-white p-8 border-l-4 border-yellow-500 rounded-lg" data-aos="fade-left">
                 <div className="text-center">
-                  <div className="text-6xl mb-6">🏛️</div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  {/* <div className="text-6xl mb-6">🏛️</div> */}
+                  <h3 className="text-2xl font-bold text-red-600 mb-4">
                     "{t("hero.subtitle")}"
                   </h3>
-                  <p className="text-gray-600 italic">
+                  <p className="text-red-600 italic">
                     - हाम्रो आदर्श वाक्य
                   </p>
                 </div>
@@ -133,10 +133,10 @@ export default function AboutPage() {
         </section>
 
         {/* Achievements */}
-        <section className="max-w-6xl mx-auto px-6">
+        <section className="max-w-6xl mx-auto px-6 py-2 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded-lg">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-800" data-aos="fade-up">हाम्रा उपलब्धिहरू</h2>
-            <p className="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="200">
+            <h2 className="text-4xl font-bold mb-4 text-gray-100" data-aos="fade-up">हाम्रा उपलब्धिहरू</h2>
+            <p className="text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
               आजसम्मका हाम्रा मुख्य उपलब्धिहरू
             </p>
           </div>
@@ -145,7 +145,7 @@ export default function AboutPage() {
             {achievements.map((achievement, index) => (
               <div 
                 key={index}
-                className="text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                className="text-center p-6 bg-white border-l-4 border-yellow-500 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
                 data-aos="fade-up"
                 data-aos-delay={index * 200}
               >
@@ -158,11 +158,11 @@ export default function AboutPage() {
         </section>
 
         {/* Team Section */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded-lg">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4 text-gray-800" data-aos="fade-up">हाम्रो टोली</h2>
-              <p className="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="200">
+              <h2 className="text-4xl font-bold mb-4 text-gray-100" data-aos="fade-up">हाम्रो टोली</h2>
+              <p className="text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
                 अनुभवी र समर्पित व्यक्तिहरूको टोली
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function AboutPage() {
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}
-                  className="bg-white p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow"
+                  className="bg-white p-6 border-l-4 border-yellow-500 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow"
                   data-aos="fade-up"
                   data-aos-delay={index * 200}
                 >
@@ -186,7 +186,7 @@ export default function AboutPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="bg-red-600 text-white py-16">
+        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 text-white py-16">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-4" data-aos="fade-up">हामीसँग जोडिनुहोस्</h2>
             <p className="text-lg mb-8" data-aos="fade-up" data-aos-delay="200">
@@ -195,13 +195,13 @@ export default function AboutPage() {
             <div className="space-x-4" data-aos="fade-up" data-aos-delay="400">
               <a 
                 href="/contact" 
-                className="inline-block bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="inline-block bg-yellow-300 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
               >
                 सम्पर्क गर्नुहोस्
               </a>
               <a 
                 href="/programs" 
-                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors"
+                className="inline-block border-2 border-yellow-500 text-yellow-500 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 hover:text-red-600 transition-colors"
               >
                 कार्यक्रमहरू हेर्नुहोस्
               </a>

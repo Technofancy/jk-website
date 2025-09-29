@@ -9,8 +9,8 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 space-y-8">
-      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-500 rounded-xl p-2">
+    <div className="max-w-7xl mx-auto p-4 space-y-8 h-screen">
+      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
         संग्रह (ग्यालरी)
       </h1>
 
@@ -21,7 +21,7 @@ export default function GalleryPage() {
           images.map((img) => (
             <div
               key={img.id}
-              className="overflow-hidden rounded shadow hover:scale-105 transition-transform bg-gradient-to-r from-red-500 via-red-300 to-orange-100"
+              className="overflow-hidden rounded shadow hover:scale-105 transition-transform bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-2"
             >
               <img
                 src={img.image_url}

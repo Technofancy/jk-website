@@ -82,7 +82,7 @@ export default function BooksPage() {
       
       <div className="space-y-8">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-600 to-orange-500 dark:from-red-700 dark:to-orange-600 text-white py-16 transition-colors duration-300">
+        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300  text-white py-16 transition-colors duration-100">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h1 className="text-5xl font-bold mb-4" data-aos="fade-up">
               {t("books.title")}
@@ -109,7 +109,7 @@ export default function BooksPage() {
               </div>
 
               {/* Category Filter */}
-              <div className="flex flex-wrap gap-2">
+              {/* <div className="flex flex-wrap gap-2">
                 {categories.map(category => (
                   <button
                     key={category}
@@ -123,7 +123,7 @@ export default function BooksPage() {
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </button>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Results Count */}

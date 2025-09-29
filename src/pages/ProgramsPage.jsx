@@ -10,8 +10,8 @@ export default function ProgramsPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 space-y-8">
-      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-500 rounded-xl p-2">
+    <div className="max-w-7xl mx-auto p-4 space-y-8 text-white h-screen">
+      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
         हाम्रा कार्यक्रमहरु
       </h1>
 
@@ -24,16 +24,21 @@ export default function ProgramsPage() {
             <div
               key={p.id}
               onClick={() => setSelectedProgram(p)} // open modal
-              className="cursor-pointer bg-gradient-to-r from-red-500 via-red-300 to-orange-100 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
+              className="cursor-pointer bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
               data-aos="fade-up"
             >
               <h2 className="text-xl font-semibold mb-2">{p.title.rendered}</h2>
+              <img
+                src={p.acf?.picture.url}
+                alt={p.title.rendered}
+                className="w-full max-h-96 object-cover rounded mb-4"
+              />
               <p className="text-gray-700 mb-2">{p.acf?.description}</p>
               <a
-                href={p.link}
+                // href={p.link}
                 className="text-blue-600 hover:underline"
                 target="_blank"
-                onClick={(e) => e.stopPropagation()} // prevent modal opening
+                // onClick={(e) => e.stopPropagation()} // prevent modal opening
               >
                 ...पुरा पढ्नुहोस्
               </a>
@@ -65,19 +70,19 @@ export default function ProgramsPage() {
               />
             )}
 
-            <p className="text-gray-700 mb-4">{selectedProgram.acf?.description}</p>
+            <p className="text-gray-900 mb-4">{selectedProgram.acf?.description}</p>
 
             {selectedProgram.acf?.text_contents && (
-              <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: selectedProgram.acf.text_contents.replace(/\r\n/g, "<br/>") }}></div>
+              <div className="text-gray-900" dangerouslySetInnerHTML={{ __html: selectedProgram.acf.text_contents.replace(/\r\n/g, "<br/>") }}></div>
             )}
 
-            <a
+            {/* <a
               href={selectedProgram.link}
               target="_blank"
               className="mt-4 inline-block text-blue-600 hover:underline"
             >
               ...पुरा पढ्नुहोस्
-            </a>
+            </a> */}
           </div>
         </div>
       )}
