@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SEO from "../components/SEO";
-import { Members } from "../api/members.js"; 
+// import { Members } from "../api/members.js"; 
 
 export default function AboutPage() {
   const { t, i18n } = useTranslation();
