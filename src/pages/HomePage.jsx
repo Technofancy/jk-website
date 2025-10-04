@@ -144,7 +144,7 @@ export default function HomePage() {
 
         {/* Call to Action */}
         <section className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="300">
-          <div className="bg-gradient-to-r from-orange-400 to-red-500 dark:from-orange-600 dark:to-red-600 text-white p-12 rounded-lg transition-colors duration-200">
+          <div className="bg-gradient-to-r from-red-700 to-red-500 dark:from-orange-300 text-white p-12 rounded-lg transition-colors duration-200">
             <h2 className="text-3xl font-bold mb-4">हामीसँग जोडिनुहोस्</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
               समाजको विकासमा योगदान पुर्याउन र सकारात्मक परिवर्तन ल्याउन हामीसँग सहकार्य गर्नुहोस्।

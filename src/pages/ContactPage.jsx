@@ -226,7 +226,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  // disabled={isSubmitting}
                   disabled
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                     isSubmitting
