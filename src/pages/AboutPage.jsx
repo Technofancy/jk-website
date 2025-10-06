@@ -27,28 +27,28 @@ export default function AboutPage() {
     }
   ];
 
-  const achievements = [
-    {
-      number: "500+",
-      label: "लाभान्वित परिवार",
-      icon: "👨‍👩‍👧‍👦"
-    },
-    {
-      number: "50+",
-      label: "सम्पन्न कार्यक्रम",
-      icon: "🎯"
-    },
-    {
-      number: "10+",
-      label: "सहयोगी संस्था",
-      icon: "🤝"
-    },
-    {
-      number: "5+",
-      label: "वर्षको अनुभव",
-      icon: "⭐"
-    }
-  ];
+  // const achievements = [
+  //   {
+  //     number: "500+",
+  //     label: "लाभान्वित परिवार",
+  //     icon: "👨‍👩‍👧‍👦"
+  //   },
+  //   {
+  //     number: "50+",
+  //     label: "सम्पन्न कार्यक्रम",
+  //     icon: "🎯"
+  //   },
+  //   {
+  //     number: "10+",
+  //     label: "सहयोगी संस्था",
+  //     icon: "🤝"
+  //   },
+  //   {
+  //     number: "5+",
+  //     label: "वर्षको अनुभव",
+  //     icon: "⭐"
+  //   }
+  // ];
 
   return (
     <>
@@ -134,7 +134,7 @@ export default function AboutPage() {
         </section>
 
         {/* Achievements */}
-        <section className="max-w-6xl mx-auto px-6 py-2 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded-lg">
+        {/* <section className="max-w-6xl mx-auto px-6 py-2 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded-lg">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 text-gray-100" data-aos="fade-up">हाम्रा उपलब्धिहरू</h2>
             <p className="text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
@@ -156,7 +156,7 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Team Section */}
         <section className="bg-gray-50 py-16 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded-lg">
