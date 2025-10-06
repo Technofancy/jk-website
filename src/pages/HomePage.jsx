@@ -1,115 +1,113 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero";
 import SEO from "../components/SEO";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function HomePage() {
   const { t } = useTranslation();
-
-  // function to convert English numbers to Nepali numbers
-  // const toNepaliNumber = (num) => {
-  //   const nepaliDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-  //   return num.toString().split('').map(d => nepaliDigits[parseInt(d)]).join('');
-  // };
+  const about = t("about", { returnObjects: true });
 
   const programs = [
     {
       title: t("programs.education"),
       description: "शिक्षाको क्षेत्रमा गुणस्तरीय सेवा प्रदान गर्दै समुदायको विकासमा योगदान पुर्याउने।",
-      icon: "📚"
+      icon: "📚",
     },
     {
       title: t("programs.technology"),
       description: "प्रविधिको माध्यमबाट समुदायलाई सशक्त बनाउने र डिजिटल साक्षरता बढाउने।",
-      icon: "💻"
+      icon: "💻",
     },
     {
       title: t("programs.community"),
       description: "सामुदायिक विकासका लागि विभिन्न कार्यक्रमहरू सञ्चालन गर्ने।",
-      icon: "🤝"
-    }
+      icon: "🤝",
+    },
   ];
+
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true, easing: "ease-in-out" });
+  }, []);
 
   return (
     <>
-      <SEO 
+      <SEO
         title={t("home")}
         description={t("hero.description")}
         keywords="Jaro Kilo Foundation, Nepal, Education, Technology, Community Development, जरो किलो प्रतिष्ठान"
       />
-      
-      <div className="space-y-16">
+
+      <div className="space-y-12 px-4 sm:px-6 lg:px-8">
+
         {/* Hero */}
         <Hero />
-        
-        {/* Mission Statement */}
-        <section className="max-w-6xl bg-gradient-to-r from-red-700 via-red-500 to-orange-300 mx-auto p-8 rounded-lg shadow-lg transition-colors duration-300" data-aos="fade-up">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold mb-6 text-white">{t("about.mission")}</h2>
-            <p className="text-lg text-gray-100 leading-relaxed max-w-4xl mx-auto">
-              {t("about.missionText")}
-            </p>
-          </div>
+
+        {/* Mission Section */}
+        <section
+          className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-6 sm:p-12 rounded-lg shadow-xl text-center text-white"
+          data-aos="zoom-in"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{about.mission.title}</h2>
+          <p className="text-lg sm:text-xl max-w-2xl mx-auto">{about.mission.text}</p>
         </section>
 
         {/* About Section */}
-        <section className="max-w-6xl mx-auto px-6 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-orange-300" data-aos="fade-up" data-aos-delay="100" >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ">
-            <div>
-              <h2 className="text-4xl font-bold mb-6 py-4 text-gray-100">{t("about.title")}</h2>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-100">{t("about.vision")}</h3>
-                  <p className="text-gray-300">{t("about.visionText")}</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-100">{t("about.values")}</h3>
-                  <p className="text-gray-300">{t("about.valuesText")}</p>
-                </div>
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div data-aos="fade-right">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-red-700">{about.title}</h2>
+            <div className="space-y-6">
+              <div data-aos="fade-up" data-aos-delay="100">
+                <h3 className="text-xl font-semibold text-red-600">{about.vision.title}</h3>
+                <p className="text-gray-700">{about.vision.text}</p>
               </div>
-              <Link 
-                to="/about" 
-                className="inline-block mt-6 bg-yellow-300 text-red-500 px-6 py-3 m-2 rounded-lg hover:bg-yellow-400 font-bold transition-colors duration-200"
-              >
-                {t("hero.cta")}
-              </Link>
-            </div>
-            <div className="bg-white border-l-4 border-yellow-500 p-8 rounded-lg transition-colors duration-300">
-              <div className="text-center">
-                {/* <div className="text-6xl mb-4">🏛️</div> */}
-                <h3 className="text-2xl font-bold text-red-500 mb-4">
-                  {t("hero.subtitle")}
-                </h3>
-                <p className="text-red-300">
-                  विज्ञान र धर्मको सामंजस्यमा आधारित समाजको निर्माण
-                </p>
+              <div data-aos="fade-up" data-aos-delay="200">
+                <h3 className="text-xl font-semibold text-red-600">{about.values.title}</h3>
+                <p className="text-gray-700">{about.values.text}</p>
               </div>
             </div>
+            <Link
+              to="/about"
+              className="inline-block mt-6 bg-yellow-300 text-red-600 px-6 py-3 rounded-lg font-bold hover:bg-yellow-400 transition-colors duration-300"
+              data-aos="fade-up" data-aos-delay="300"
+            >
+              {t("hero.cta")}
+            </Link>
+          </div>
+
+          <div
+            className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-400"
+            data-aos="fade-left"
+          >
+            <h3 className="text-2xl font-bold text-red-500 mb-3">{t("hero.subtitle")}</h3>
+            <p className="text-gray-700">विज्ञान र धर्मको सामंजस्यमा आधारित समाजको निर्माण</p>
           </div>
         </section>
 
-        {/* Programs Preview */}
-        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 max-w-6xl mx-auto px-6" data-aos="fade-up" data-aos-delay="200">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-100 p-4">{t("programs.title")}</h2>
-            <p className="text-lg text-gray-300">हाम्रा मुख्य कार्यक्रमहरूको झलक</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((program, index) => (
-              <div 
-                key={index} 
-                className="bg-white  p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 mb-2"
-                data-aos="fade-up" 
-                data-aos-delay={200 + index * 50}
+        {/* Programs Section */}
+        <section className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6" data-aos="fade-down"> 
+            {t("programs.title")}
+          </h2>
+          <p className="text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="100">हाम्रा मुख्य कार्यक्रमहरूको झलक</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {programs.map((program, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-500 border-l-4 border-yellow-400 text-left transform hover:-translate-y-1 hover:scale-105"
+                data-aos="fade-up"
+                data-aos-delay={200 + idx * 100}
               >
-                <div className="text-4xl mb-4">{program.icon}</div>
-                <h3 className="font-bold text-xl mb-3 text-gray-900">{program.title}</h3>
-                <p className="text-gray-600 mb-4">{program.description}</p>
-                <Link 
-                  to="/programs" 
-                  className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium transition-colors duration-200"
+                <div className="text-5xl mb-3 animate-bounce">{program.icon}</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{program.title}</h3>
+                <p className="text-gray-600">{program.description}</p>
+                <Link
+                  to="/programs"
+                  className="text-red-600 hover:text-red-800 font-medium mt-2 inline-block"
                 >
                   थप जान्नुहोस् →
                 </Link>
@@ -118,51 +116,28 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Statistics Section */}
-        {/* <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 dark:bg-red-700 text-white py-16 transition-colors duration-300" data-aos="fade-up" data-aos-delay="400">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-4xl font-bold mb-2">{toNepaliNumber(500)}+</div>
-                <div className="text-lg">लाभान्वित परिवार</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">{toNepaliNumber(50)}+</div>
-                <div className="text-lg">सम्पन्न कार्यक्रम</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">{toNepaliNumber(10)}+</div>
-                <div className="text-lg">सहयोगी संस्था</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">{toNepaliNumber(5)}+</div>
-                <div className="text-lg">वर्षको अनुभव</div>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
         {/* Call to Action */}
-        <section className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="300">
-          <div className="bg-gradient-to-r from-red-700 to-red-500 dark:from-orange-300 text-white p-12 rounded-lg transition-colors duration-200">
-            <h2 className="text-3xl font-bold mb-4">हामीसँग जोडिनुहोस्</h2>
-            <p className="text-lg mb-8 max-w-2xl mx-auto">
-              समाजको विकासमा योगदान पुर्याउन र सकारात्मक परिवर्तन ल्याउन हामीसँग सहकार्य गर्नुहोस्।
-            </p>
-            <div className="space-x-4">
-              <Link 
-                to="/contact" 
-                className="inline-block bg-white dark:bg-gray-100 text-red-600 dark:text-red-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-200 transition-colors duration-200"
-              >
-                सम्पर्क गर्नुहोस्
-              </Link>
-              <Link 
-                to="/programs" 
-                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 dark:hover:text-red-700 transition-colors duration-200"
-              >
-                कार्यक्रमहरू हेर्नुहोस्
-              </Link>
-            </div>
+        <section
+          className="bg-gradient-to-r from-red-700 to-red-500 text-white p-8 sm:p-12 rounded-lg text-center shadow-lg"
+          data-aos="zoom-in"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">हामीसँग जोडिनुहोस्</h2>
+          <p className="mb-6 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            समाजको विकासमा योगदान पुर्याउन र सकारात्मक परिवर्तन ल्याउन हामीसँग सहकार्य गर्नुहोस्।
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+            <Link
+              to="/contact"
+              className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300"
+            >
+              सम्पर्क गर्नुहोस्
+            </Link>
+            <Link
+              to="/programs"
+              className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors duration-300"
+            >
+              कार्यक्रमहरू हेर्नुहोस्
+            </Link>
           </div>
         </section>
       </div>

@@ -4,35 +4,109 @@
   "contact": "Contact",
   "books": "Books",
   "news": "News",
-  "press": "Press Release",
+  "press": "Press",
   "programs": "Programs",
   "gallery": "Gallery",
+
   "navbar": {
     "home": "Home",
     "about": "About Us",
     "books": "Books",
     "news": "News",
-    "press": "Press Release",
+    "press": "Press",
     "programs": "Programs",
     "gallery": "Gallery",
     "contact": "Contact"
   },
+
   "hero": {
-    "title": "Jaro Kilo Foundation Nepal",
-    "subtitle": "Knowledge of Science, Progress of Technology. Conscience of Dharma, Relation of Sahridayata.",
-    "description": "Dedicated to promoting education, technology, and social welfare in Nepal through innovative programs and community engagement.",
+    "title": "Jaro Kilo Pratishthan Nepal",
+    "subtitle": "Intelligence of Science, Advancement of Technology. Wisdom of Religion, Relation of Compassion.",
+    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
     "cta": "Learn More",
     "explore": "Explore Our Work"
   },
+
   "about": {
-    "title": "About Jaro Kilo Foundation",
-    "mission": "Our Mission",
-    "vision": "Our Vision",
-    "values": "Our Values",
-    "missionText": "To empower communities through education, technology, and sustainable development initiatives that create lasting positive impact.",
-    "visionText": "A prosperous Nepal where every individual has access to quality education and opportunities for growth.",
-    "valuesText": "Integrity, Innovation, Inclusivity, and Impact guide everything we do."
+    "title": "Jaro Kilo Pratishthan Nepal",
+    "mission": {
+      "title": "Our Mission",
+      "text": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "A prosperous Nepal where every individual has access to quality education and awareness of self-culture."
+    },
+    "values": {
+      "title": "Our Values",
+      "text": "Integrity, innovation, inclusivity, and impact guide everything we do."
+    },
+    "introduction": {
+      "title": "Introduction",
+      "text": "Jaro Kilo Pratishthan Nepal is registered with the Office of the Company Registrar under the Ministry of Industry, Government of Nepal, and affiliated with the Social Welfare Council of Nepal. As a non-profit service organization, it undertakes institutional initiatives to research, promote, and develop Nepal’s indigenous religions, culture, philosophy, traditions, arts, rituals, knowledge, craftsmanship, skills, yoga, Ayurveda, agriculture, and more. The organization was founded with a commitment to contribute to Nepal’s progress, prosperity, and development through activities in religious, cultural, social, educational, and economic fields. Jaro Kilo Pratishthan Nepal is dedicated to creating opportunities for entrepreneurship, employment, and personality development for Nepalese people, thereby contributing to the national economy and laying the foundation of a 'Compassionate Economy.' The organization envisions a 'Scientific Era of Truth,' based on the four pillars: 'Intelligence of Science, Advancement of Technology, Wisdom of Religion, Relation of Compassion.'"
+    },
+    "objectives": {
+      "title": "Objectives",
+      "list": [
+        "Explore, research, develop, and promote Nepal’s indigenous religions, culture, philosophy, traditions, arts, rituals, knowledge, craftsmanship, skills, and Ayurveda.",
+        "Construct and operate various educational institutions, Gurukuls, cultural centers, service centers, dharmashalas, and related facilities.",
+        "Conduct and facilitate various skill-based training programs.",
+        "Research, develop, and promote Nepal’s indigenous medicines.",
+        "Research, develop, and promote Nepal’s traditional foods and beverages.",
+        "Conduct research, publications, and broadcasting on various aspects of Nepal.",
+        "Promote and preserve Nepal’s indigenous languages through organized activities.",
+        "Organize activities for the preservation of Nepal’s monasteries, temples, trusts, stupas, and viharas.",
+        "Preserve and promote Nepal’s indigenous Vedic, Buddhist, Jain, Kirati, Bon, and other religious and cultural heritage.",
+        "Conduct psychosocial awareness programs."
+      ]
+    },
+    "foundingMembers": {
+      "title": "Founding Members",
+      "chairperson": "Founding Chairperson: Dr. Nirmalmani Adhikari",
+      "members": [
+        "Achyut Paudyal (Gulmi)",
+        "Anilkumar Chaudhary (Jhapa)",
+        "Anup Adhikari (Nawalparasi)",
+        "Arjunkumar Pandey (Kathmandu)",
+        "Arjun Sharma (Nawalparasi)",
+        "Kumar Khadka (Kathmandu)",
+        "Kedarprasad Khakural (Dhading)",
+        "Keshwaraj Joshi (Bajhang)",
+        "Krishnasad Rimal (Nawalparasi)",
+        "Krishnaram Prajapati (Bhaktapur)",
+        "Krishna Shankar Ghimire (Sarlahi)",
+        "Khim Bahadur Sunar (Myagdi/Nawalparasi)",
+        "Khemprasad Lohani (Dhading)",
+        "Khemraj Nyaupane (Syangja)",
+        "Dr. Govindasharan Upadhyay (Parbat)",
+        "Tanka Upreti Dahal (Jhapa)",
+        "Dilip Sharma (Saptari)",
+        "Durga Thapa (Baglung)",
+        "Devaraj Shivakoti (Jhapa)",
+        "Navalkishor Giri (Bara)",
+        "Dr. Nirmalmani Adhikari (Tanahun)",
+        "Balram Prajapati (Bhaktapur)",
+        "Madhavprasad Kandel (Chitwan)",
+        "Yogendra Chudal (Shankar Chudal) (Jhapa)",
+        "Ramesh Bastola (Jhapa)",
+        "Rabin Gainju (Bhaktapur)",
+        "Ramji Paudel Kshetri (Kaski)",
+        "Rameshwar Ghital (Dhading)",
+        "Rupkaraj Raut (Morang)",
+        "Laxmikant Rimal (Nawalparasi)",
+        "Laxmikumari Sharma (Parbat)",
+        "Lal Prasad Gaire (Tanahun)",
+        "Lilaraj Bagale (Chitwan)",
+        "Savitadevi Bhattarai (Chitwan)",
+        "Sitalakshmi Prajapati (Bhaktapur)",
+        "Sushil Gautam (Makwanpur)",
+        "Shriramprasad Pokhrel (Kathmandu)",
+        "Hemkumar Dahal (Sunsari)",
+        "Hemraj Bhusal (Rupandehi)"
+      ]
+    }
   },
+
   "programs": {
     "title": "Our Programs",
     "education": "Education",
@@ -40,28 +114,33 @@
     "community": "Community Development",
     "research": "Research & Innovation"
   },
+
   "books": {
     "title": "Publications",
     "subtitle": "Explore our collection of books and research publications",
     "noBooks": "No books available at the moment. Please check back later."
   },
+
   "news": {
     "title": "Latest News",
-    "subtitle": "Stay updated with our latest activities and announcements",
+    "subtitle": "Stay updated with our recent activities and announcements",
     "readMore": "Read More",
     "noNews": "No news available at the moment. Please check back later."
   },
+
   "press": {
     "title": "Press Releases",
     "subtitle": "Official announcements and media coverage",
     "date": "Date",
     "noPress": "No press releases available at the moment. Please check back later."
   },
+
   "gallery": {
     "title": "Gallery",
     "subtitle": "Visual stories of our work and impact",
     "noImages": "No images available at the moment. Please check back later."
   },
+
   "contact": {
     "title": "Contact Us",
     "subtitle": "Get in touch with us",
@@ -79,16 +158,18 @@
       "error": "Failed to send message. Please try again."
     }
   },
+
   "footer": {
-    "description": "Jaro Kilo Foundation Nepal is committed to creating positive change through education, technology, and community development.",
+    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
-    "copyright": "© 2024 Jaro Kilo Foundation Nepal. All rights reserved."
+    "copyright": "© 2024 Jaro Kilo Pratishthan Nepal. All Rights Reserved."
   },
+
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
-    "retry": "Try Again",
+    "retry": "Retry",
     "close": "Close",
     "save": "Save",
     "cancel": "Cancel",
@@ -97,6 +178,11 @@
     "filter": "Filter",
     "sort": "Sort",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+
+    "joinUs": "Join Us",
+    "joinText": "Collaborate with us to contribute to community development",
+    "contact": "Contact Us",
+    "viewPrograms": "View Programs"
   }
 }
