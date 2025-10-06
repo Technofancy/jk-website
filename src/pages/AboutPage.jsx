@@ -50,7 +50,7 @@ export default function AboutPage() {
           </div>
 
           {/* Right: Facebook iframe */}
-          <div data-aos="fade-left" className="w-full h-full items-center border-2 border-red-600">
+          <div data-aos="fade-left" className="w-full h-full items-center border-x-2 border-red-600">
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
               width="340"
@@ -58,7 +58,7 @@ export default function AboutPage() {
               style={{ border: "none", overflow: "hidden", margin: "auto" }}
               scrolling="no"
               frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen={true}
             />
           </div>
@@ -68,13 +68,13 @@ export default function AboutPage() {
         <section className="py-16 mt-14 bg-gray-50 rounded-lg">
           <div className="max-w-6xl mx-auto text-center mb-12 shadow-lg rounded-md border-x-4 border-yellow-400">
             <h2
-              className="text-4xl font-bold text-gray-800"
+              className="text-4xl font-bold text-red-600"
               data-aos="fade-down"
             >
               {about.foundingMembers.title}
             </h2>
             <p
-              className="text-lg text-gray-600 mt-2 border-b-2 border-yellow-400"
+              className="text-lg text-gray-600 mt-2 border-b-4 border-red-400 rounded-lg"
               data-aos="fade-up"
               data-aos-delay="100"
             >

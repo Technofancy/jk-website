@@ -128,13 +128,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
             <Link
               to="/contact"
-              className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300"
+              className="bg-yellow-300 text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors duration-300"
             >
               सम्पर्क गर्नुहोस्
             </Link>
             <Link
               to="/programs"
-              className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors duration-300"
+              className="border-2 text-yellow-400 border-yellow-400 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 hover:text-red-600 transition-colors duration-300"
             >
               कार्यक्रमहरू हेर्नुहोस्
             </Link>
