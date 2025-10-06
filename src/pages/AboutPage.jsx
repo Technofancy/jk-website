@@ -24,15 +24,15 @@ export default function AboutPage() {
 
       <div className="space-y-16 px-4 sm:px-6 lg:px-8">
         {/* Short Bar / About Us Title */}
-        <section className="bg-red-600 text-white py-4 text-center rounded">
+        <section className="bg-red-600 text-white py-2 my-4 text-center rounded">
           <h1 className="text-2xl sm:text-3xl font-bold">{about.title}</h1>
         </section>
 
         {/* Introduction & Objectives */}
-        <section className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <section className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
           {/* Left: Introduction + Objectives */}
           <div data-aos="fade-right">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl font-bold text-red-600 mb-4">
               {about.introduction.title}
             </h2>
             <p className="text-gray-700 leading-relaxed mb-6">
@@ -50,12 +50,12 @@ export default function AboutPage() {
           </div>
 
           {/* Right: Facebook iframe */}
-          <div data-aos="fade-left" className="w-full h-96">
+          <div data-aos="fade-left" className="w-full h-full items-center border-2 border-red-600">
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
               width="340"
               height="500"
-              style={{ border: "none", overflow: "hidden" }}
+              style={{ border: "none", overflow: "hidden", margin: "auto" }}
               scrolling="no"
               frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -65,8 +65,8 @@ export default function AboutPage() {
         </section>
 
         {/* Founding Members */}
-        <section className="py-16 bg-gray-50 rounded-lg">
-          <div className="max-w-6xl mx-auto text-center mb-12">
+        <section className="py-16 mt-14 bg-gray-50 rounded-lg">
+          <div className="max-w-6xl mx-auto text-center mb-12 shadow-lg rounded-md border-x-4 border-yellow-400">
             <h2
               className="text-4xl font-bold text-gray-800"
               data-aos="fade-down"
@@ -74,9 +74,9 @@ export default function AboutPage() {
               {about.foundingMembers.title}
             </h2>
             <p
-              className="text-lg text-gray-600 mt-2"
+              className="text-lg text-gray-600 mt-2 border-b-2 border-yellow-400"
               data-aos="fade-up"
-              data-aos-delay="200"
+              data-aos-delay="100"
             >
               {about.foundingMembers.chairperson}
             </p>
@@ -86,9 +86,9 @@ export default function AboutPage() {
             {about.foundingMembers.members.map((member, idx) => (
               <div
                 key={idx}
-                className="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 hover:scale-105"
+                className="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-xl transition-all duration-100 transform hover:-translate-y-1 hover:scale-105 border-l-4 border-yellow-400"
                 data-aos="fade-up"
-                data-aos-delay={idx * 100}
+                data-aos-delay={idx * 10}
               >
                 <p className="text-gray-800">{member}</p>
               </div>
