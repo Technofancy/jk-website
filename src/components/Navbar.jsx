@@ -22,7 +22,7 @@ export default function Navbar({ className = "" }) {
   ];
 
   return (
-    <nav className={`bg-red-700 text-white px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 ${className}`}>
+    <nav className={`bg-primary-700 text-text-inverted px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 ${className}`}>
       <Link to="/" className="flex items-center gap-3 text-2xl font-bold cursor-pointer z-50">
         <img src={logo} alt="Jaro Kilo Foundation logo" className="h-10 w-auto rounded sm:h-12" />
         <div className="flex flex-col text-center">
@@ -38,7 +38,7 @@ export default function Navbar({ className = "" }) {
           <Link
             key={l.to}
             to={l.to}
-            className={`hover:text-yellow-300 transition-colors duration-100 px-2 py-1 rounded ${l.active ? 'text-yellow-300' : ''}`}
+            className={`motion-safe:transition-colors motion-safe:duration-150 px-2 py-1 rounded hover:text-secondary-300 ${l.active ? 'text-secondary-300' : ''}`}
           >
             {l.label}
           </Link>
@@ -55,7 +55,8 @@ export default function Navbar({ className = "" }) {
         {/* <ThemeToggle /> */}
         <button 
           onClick={() => setOpen(!open)} 
-          className="text-xl p-1 hover:bg-red-600 rounded transition-colors duration-200"
+          className="text-xl p-1 rounded motion-safe:transition-colors motion-safe:duration-150 hover:bg-primary-600"
+          aria-label={open ? 'Close menu' : 'Open menu'}
         >
           ☰
         </button>
@@ -63,14 +64,14 @@ export default function Navbar({ className = "" }) {
 
       {/* Mobile dropdown */}
       {open && (
-        <div className="absolute top-16 left-0 right-0 z-40 md:hidden mt-0 bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-2 rounded-b shadow-lg border-t border-red-500">
+        <div className="absolute top-16 left-0 right-0 z-40 md:hidden mt-0 bg-gradient-to-r from-primary-700 via-primary-500 to-accent-300 p-2 rounded-b shadow-lg border-t border-primary-500">
           <div className="flex flex-col space-y-2">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="hover:text-yellow-300 hover:bg-red-500 transition-colors duration-200 px-4 py-2 rounded"
+                className="motion-safe:transition-colors motion-safe:duration-150 px-4 py-2 rounded hover:text-secondary-300 hover:bg-primary-500/70"
               >
                 {l.label}
               </Link>

@@ -1,4 +1,44 @@
 {
+  "homepage": {
+    "heroSlider": {
+      "title": "Jaro Kilo Pratishthan Nepal",
+      "subtitle": "Intelligence of Science, Advancement of Technology. Wisdom of Religion, Relation of Compassion.",
+      "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
+      "cta": "Learn More"
+    },
+    "facebookIframe": {
+      "title": "Our Facebook Page",
+      "description": "See our latest activities and updates directly from Facebook."
+    },
+    "aboutSection": {
+      "title": "About Us",
+      "subtitle": "Organization’s mission, vision, and values"
+    },
+    "programSlider": {
+      "title": "Our Programs",
+      "subtitle": "Key initiatives for community and national development",
+      "noPrograms": "No programs available at the moment. Please check back later."
+    },
+    "bookSlider": {
+      "title": "Publications",
+      "subtitle": "Explore our collection of books and research publications",
+      "noBooks": "No books available at the moment. Please check back later."
+    },
+    "callToAction": {
+      "title": "Join Us",
+      "description": "Collaborate with us to contribute to community development and bring positive change.",
+      "buttons": {
+        "contact": "Contact Us",
+        "viewPrograms": "View Programs"
+      }
+    },
+    "testimonials": {
+      "title": "Our Testimonials",
+      "subtitle": "Feedback and experiences shared by community members",
+      "noTestimonials": "No testimonials available at the moment. Please check back later."
+    }
+  },
+
   "home": "Home",
   "about": "About Us",
   "contact": "Contact",

@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  Global styles and accessibility helpers
+  - Colors are controlled via Tailwind semantic tokens in tailwind.config.js
+  - Avoid dynamic theme switching; use semantic utilities (primary, secondary, accent, surface, text, muted)
+*/
+
+/* Enable smooth scrolling unless user prefers reduced motion */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Respect prefers-reduced-motion: minimize animations/transitions */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Improve focus visibility for keyboard users */
+:focus-visible {
+  outline: 2px solid theme('colors.secondary.400');
+  outline-offset: 2px;
+}
+
+/* Container helpers for consistent widths (optional) */
+@layer components {
+  .container-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
