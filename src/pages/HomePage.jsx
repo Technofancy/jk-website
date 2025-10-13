@@ -15,6 +15,13 @@ import "slick-carousel/slick/slick-theme.css";
 import { fetchPrograms } from "../api/programs";
 import { fetchBooks } from "../api/books";
 
+// 🔁 Helper to pick N random items from an array
+function getRandomSubset(array, count) {
+  return [...array]
+    .sort(() => 0.5 - Math.random())
+    .slice(0, count);
+}
+
 export default function HomePage() {
   const { t } = useTranslation();
 
@@ -56,8 +63,14 @@ export default function HomePage() {
         setLoadingBooks(true);
         setErrorBooks(null);
         const data = await fetchBooks({ per_page: 12 });
-        setBooks(Array.isArray(data) ? data.slice(0, 6) : []);
-      } catch (err) {
+         if (Array.isArray(data)) {
+          const randomBooks = getRandomSubset(data, 6);
+          setBooks(randomBooks);
+        } else {
+          setBooks([]);
+        }
+      }
+      catch (err) {
         setErrorBooks(t("common.error"));
       } finally {
         setLoadingBooks(false);
@@ -87,13 +100,13 @@ export default function HomePage() {
         keywords="Jaro Kilo Foundation, Nepal, Education, Technology, Community Development"
       />
 
-      <div className="container-page space-y-12">
+      <div className="min-w-full">
         {/* Hero (kept as existing) */}
         <Hero />
 
         {/* Facebook iframe section */}
         <section className="my-12" data-aos="fade-up">
-          <div className="text-center mb-6">
+          <div className="text-center mb-6 border-y-2 border-yellow-500 rounded-md py-2">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-700">
               {t("homepage.facebookIframe.title")}
             </h2>
@@ -101,7 +114,7 @@ export default function HomePage() {
               {t("homepage.facebookIframe.description")}
             </p>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center rounded-md border-x-2 border-yellow-500">
             <iframe
               title="Facebook Page"
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
@@ -151,12 +164,14 @@ export default function HomePage() {
 
         {/* Programs Slider */}
         <section className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-text mb-2" data-aos="fade-down">
+          <div className=" border-y-2 border-yellow-500 rounded-md py-2 mt-2">
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2 " data-aos="fade-down">
             {t("homepage.programSlider.title")}
           </h2>
           <p className="text-muted mb-8" data-aos="fade-up" data-aos-delay="100">
             {t("homepage.programSlider.subtitle")}
           </p>
+          </div>
 
           {/* Loading and error states for programs */}
           {loadingPrograms && (
@@ -197,12 +212,15 @@ export default function HomePage() {
 
         {/* Books Slider */}
         <section className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-text mb-2" data-aos="fade-down">
+          <div className=" border-y-2 border-yellow-500 rounded-md py-2 mt-2">
+
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2" data-aos="fade-down">
             {t("books.title")}
           </h2>
           <p className="text-muted mb-8" data-aos="fade-up" data-aos-delay="100">
             {t("books.subtitle")}
           </p>
+          </div>
 
           {/* Loading and error states for books */}
           {loadingBooks && (
@@ -220,7 +238,7 @@ export default function HomePage() {
                 {books.map((book, idx) => (
                   <div
                     key={book.id || idx}
-                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4"
+                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4 border-l-4 border-secondary-400"
                     data-aos="fade-up"
                     data-aos-delay={200 + idx * 100}
                   >
@@ -236,10 +254,10 @@ export default function HomePage() {
 
         {/* Call to Action */}
         <section
-          className="bg-gradient-to-r from-primary-700 to-primary-500 text-text-inverted p-8 sm:p-12 rounded-lg text-center shadow-lg"
+          className="bg-gradient-to-r from-primary-700 to-primary-500 text-text-inverted p-8 mb-2 sm:p-12 rounded-lg text-center shadow-lg"
           data-aos="zoom-in"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t("common.joinUs")}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4" data-aos="fade-up">{t("common.joinUs")}</h2>
           <p className="mb-6 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
             {t("common.joinText")}
           </p>
