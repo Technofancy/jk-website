@@ -49,6 +49,7 @@ export default function HomePage() {
         setPrograms(Array.isArray(data) ? data.slice(0, 6) : []);
       } catch (err) {
         setErrorPrograms(t("common.error"));
+        console.log(err)
       } finally {
         setLoadingPrograms(false);
       }
@@ -72,6 +73,7 @@ export default function HomePage() {
       }
       catch (err) {
         setErrorBooks(t("common.error"));
+        console.log(err)
       } finally {
         setLoadingBooks(false);
       }
