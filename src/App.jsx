@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 import "aos/dist/aos.css";
 
 import Layout from "./components/Layout";
+import ScrollToTop from './components/ScrollToTop';
+
 
 // Route-based code splitting
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -22,6 +24,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <Router>
+        <ScrollToTop />
         <Layout>
           <Suspense fallback={<div className="p-6 text-center">Loading...</div>}>
             <Routes>
