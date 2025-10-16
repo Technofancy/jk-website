@@ -17,9 +17,7 @@ import { fetchBooks } from "../api/books";
 
 // 🔁 Helper to pick N random items from an array
 function getRandomSubset(array, count) {
-  return [...array]
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count);
+  return [...array].sort(() => 0.5 - Math.random()).slice(0, count);
 }
 
 export default function HomePage() {
@@ -44,12 +42,17 @@ export default function HomePage() {
       try {
         setLoadingPrograms(true);
         setErrorPrograms(null);
-        const data = await fetchPrograms({ per_page: 12 });
-        // Use first few for homepage
-        setPrograms(Array.isArray(data) ? data.slice(0, 6) : []);
+
+        const { items } = await fetchPrograms(1, 12); // <-- destructure items
+        if (Array.isArray(items)) {
+          const randomPrograms = getRandomSubset(items, 6);
+          setPrograms(randomPrograms);
+        } else {
+          setPrograms([]);
+        }
       } catch (err) {
         setErrorPrograms(t("common.error"));
-        console.log(err)
+        console.log(err);
       } finally {
         setLoadingPrograms(false);
       }
@@ -64,16 +67,15 @@ export default function HomePage() {
         setLoadingBooks(true);
         setErrorBooks(null);
         const data = await fetchBooks({ per_page: 12 });
-         if (Array.isArray(data)) {
+        if (Array.isArray(data)) {
           const randomBooks = getRandomSubset(data, 6);
           setBooks(randomBooks);
         } else {
           setBooks([]);
         }
-      }
-      catch (err) {
+      } catch (err) {
         setErrorBooks(t("common.error"));
-        console.log(err)
+        console.log(err);
       } finally {
         setLoadingBooks(false);
       }
@@ -135,14 +137,20 @@ export default function HomePage() {
         {/* About Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div data-aos="fade-right">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-primary-700">{t("about.title")}</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-primary-700">
+              {t("about.title")}
+            </h2>
             <div className="space-y-6">
               <div data-aos="fade-up" data-aos-delay="100">
-                <h3 className="text-xl font-semibold text-primary-600">{t("about.vision.title")}</h3>
+                <h3 className="text-xl font-semibold text-primary-600">
+                  {t("about.vision.title")}
+                </h3>
                 <p className="text-text">{t("about.vision.text")}</p>
               </div>
               <div data-aos="fade-up" data-aos-delay="200">
-                <h3 className="text-xl font-semibold text-primary-600">{t("about.values.title")}</h3>
+                <h3 className="text-xl font-semibold text-primary-600">
+                  {t("about.values.title")}
+                </h3>
                 <p className="text-text">{t("about.values.text")}</p>
               </div>
             </div>
@@ -159,23 +167,32 @@ export default function HomePage() {
             className="bg-surface p-6 rounded-lg shadow-lg border-l-4 border-secondary-400"
             data-aos="fade-left"
           >
-            <h3 className="text-2xl font-bold text-primary-600 mb-3">{t("hero.subtitle")}</h3>
+            <h3 className="text-2xl font-bold text-primary-600 mb-3">
+              {t("hero.subtitle")}
+            </h3>
             <p className="text-text">{t("about.mission.text")}</p>
           </div>
         </section>
 
         {/* Programs Slider */}
-        <section className="text-center">
-          <div className=" border-y-2 border-yellow-500 rounded-md py-2 mt-2">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2 " data-aos="fade-down">
-            {t("homepage.programSlider.title")}
-          </h2>
-          <p className="text-muted mb-8" data-aos="fade-up" data-aos-delay="100">
-            {t("homepage.programSlider.subtitle")}
-          </p>
+        <section className="text-center mt-16">
+          <div className="border-y-2 border-yellow-500 rounded-md py-2 mt-2">
+            <h2
+              className="text-3xl sm:text-4xl font-bold text-red-700 mb-2"
+              data-aos="fade-down"
+            >
+              {t("homepage.programSlider.title")}
+            </h2>
+            <p
+              className="text-muted mb-8"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              {t("homepage.programSlider.subtitle")}
+            </p>
           </div>
 
-          {/* Loading and error states for programs */}
+          {/* Loading and error states */}
           {loadingPrograms && (
             <div className="py-10 text-muted">{t("common.loading")}</div>
           )}
@@ -183,48 +200,68 @@ export default function HomePage() {
             <div className="py-10 text-red-600">{errorPrograms}</div>
           )}
 
-          {!loadingPrograms && !errorPrograms && (
-            programs.length === 0 ? (
-              <div className="py-10 text-muted">{t("homepage.programSlider.noPrograms")}</div>
+          {!loadingPrograms &&
+            !errorPrograms &&
+            (programs.length === 0 ? (
+              <div className="py-10 text-muted">
+                अहिले कुनै कार्यक्रमहरू उपलब्ध छैनन्।
+              </div>
             ) : (
               <Slider {...sliderSettings}>
                 {programs.map((program, idx) => (
                   <div
                     key={program.id || idx}
-                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 border-l-4 border-secondary-400 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4"
+                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4 border-l-4 border-yellow-400"
                     data-aos="fade-up"
                     data-aos-delay={200 + idx * 100}
                   >
-                    <div className="text-xl font-semibold text-text mb-2 line-clamp-2" dangerouslySetInnerHTML={{ __html: program.title || program.title?.rendered || "" }} />
-                    <p className="text-muted line-clamp-3">
-                      {program.excerpt || ""}
+                    {program.acf?.picture?.url && (
+                      <img
+                        src={program.acf.picture.url}
+                        alt={program.acf.program_heading}
+                        className="w-full h-48 object-cover rounded-md mb-3"
+                      />
+                    )}
+                    <h3 className="text-xl font-bold text-text mb-2 line-clamp-2">
+                      {program.acf?.program_heading}
+                    </h3>
+                    <p className="text-primary-700 font-medium text-sm mb-2">
+                      {program.acf?.start_date}
                     </p>
-                    <Link
-                      to="/programs"
-                      className="text-primary-600 hover:text-primary-800 font-medium mt-2 inline-block motion-safe:transition-colors"
-                    >
-                      {t("common.viewPrograms")}
-                    </Link>
+                    <p className="text-muted line-clamp-3">
+                      {program.acf?.text_contents || t("programs.subtitle")}
+                    </p>
+                    <a
+              href="/programs"
+              className="inline-block mt-3 text-lg font-semibold text-yellow-600 hover:text-yellow-800 transition-colors"
+            >
+              {t("...")} →
+            </a>
                   </div>
                 ))}
               </Slider>
-            )
-          )}
+            ))}
         </section>
 
         {/* Books Slider */}
-        <section className="text-center">
-          <div className=" border-y-2 border-yellow-500 rounded-md py-2 mt-2">
-
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2" data-aos="fade-down">
-            {t("books.title")}
-          </h2>
-          <p className="text-muted mb-8" data-aos="fade-up" data-aos-delay="100">
-            {t("books.subtitle")}
-          </p>
+        <section className="text-center mt-16">
+          <div className="border-y-2 border-yellow-500 rounded-md py-2 mt-2">
+            <h2
+              className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-2"
+              data-aos="fade-down"
+            >
+              {t("books.title")}
+            </h2>
+            <p
+              className="text-muted mb-8"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              {t("books.subtitle")}
+            </p>
           </div>
 
-          {/* Loading and error states for books */}
+          {/* Loading and error states */}
           {loadingBooks && (
             <div className="py-10 text-muted">{t("common.loading")}</div>
           )}
@@ -232,26 +269,45 @@ export default function HomePage() {
             <div className="py-10 text-red-600">{errorBooks}</div>
           )}
 
-          {!loadingBooks && !errorBooks && (
-            books.length === 0 ? (
+          {!loadingBooks &&
+            !errorBooks &&
+            (books.length === 0 ? (
               <div className="py-10 text-muted">{t("books.noBooks")}</div>
             ) : (
               <Slider {...sliderSettings}>
                 {books.map((book, idx) => (
                   <div
                     key={book.id || idx}
-                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4 border-l-4 border-secondary-400"
+                    className="bg-surface p-6 rounded-lg shadow-md hover:shadow-2xl motion-safe:transition-all motion-safe:duration-300 text-left transform hover:-translate-y-1 hover:scale-[1.02] m-4 border-l-4 border-yellow-400"
                     data-aos="fade-up"
                     data-aos-delay={200 + idx * 100}
                   >
-                    <h3 className="text-xl font-bold text-text mb-2 line-clamp-2">{book.title}</h3>
-                    <p className="text-primary-700 font-medium text-sm mb-2">{book.author}</p>
-                    <p className="text-muted line-clamp-3">{book.excerpt || t("books.subtitle")}</p>
+                    {book.imageUrl && (
+                      <img
+                        src={book.imageUrl}
+                        alt={book.title}
+                        className="w-full h-48 object-cover rounded-md mb-3"
+                      />
+                    )}
+                    <h3 className="text-xl font-bold text-text mb-2 line-clamp-2">
+                      {book.title}
+                    </h3>
+                    <p className="text-primary-700 font-medium text-sm mb-2">
+                      {book.author}
+                    </p>
+                    <p className="text-muted line-clamp-3">
+                      {book.excerpt || t("books.subtitle")}
+                    </p>
+                    {/* <a
+              href="/books"
+              className="inline-block mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 transition-colors"
+            >
+              {t("common.learnMore")} →
+            </a> */}
                   </div>
                 ))}
               </Slider>
-            )
-          )}
+            ))}
         </section>
 
         {/* Call to Action */}
@@ -259,11 +315,24 @@ export default function HomePage() {
           className="bg-gradient-to-r from-primary-700 to-primary-500 text-text-inverted p-8 mb-2 sm:p-12 rounded-lg text-center shadow-lg"
           data-aos="zoom-in"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4" data-aos="fade-up">{t("common.joinUs")}</h2>
-          <p className="mb-6 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+          <h2
+            className="text-2xl sm:text-3xl font-bold mb-4"
+            data-aos="fade-up"
+          >
+            {t("common.joinUs")}
+          </h2>
+          <p
+            className="mb-6 max-w-xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             {t("common.joinText")}
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+          <div
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <Link
               to="/contact"
               className="bg-secondary-400 text-primary-800 px-6 py-3 rounded-lg font-semibold motion-safe:transition-colors motion-safe:duration-200 hover:bg-secondary-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"

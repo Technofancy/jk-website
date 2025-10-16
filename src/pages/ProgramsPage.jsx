@@ -1,88 +1,122 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { fetchPrograms } from "../api/programs";
+import { useTranslation } from "react-i18next";
 
 export default function ProgramsPage() {
+  const { t } = useTranslation();
+  const perPage = 6;
   const [programs, setPrograms] = useState([]);
-  const [selectedProgram, setSelectedProgram] = useState(null); // for modal
+  const [displayedItems, setDisplayedItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+
+  const loadPrograms = async () => {
+    setLoading(true);
+    try {
+      const { items } = await fetchPrograms(); // Destructure to get items
+      const unique = Array.from(new Map(items.map(item => [item.id, item])).values());
+      setPrograms(unique);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchPrograms().then(setPrograms);
+    loadPrograms();
   }, []);
 
+  const filteredItems = useCallback(() => {
+    if (!searchQuery.trim()) return programs;
+    return programs.filter(
+      item =>
+        item.acf?.program_heading?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.acf?.text_contents?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [programs, searchQuery]);
+
+  useEffect(() => {
+    setDisplayedItems(filteredItems().slice(0, perPage * page));
+  }, [filteredItems, page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 50 >=
+        document.documentElement.scrollHeight
+      ) {
+        if (perPage * page < filteredItems().length) {
+          setPage(prev => prev + 1);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page, filteredItems]);
+
   return (
-    <div className="max-w-7xl mx-auto p-4 space-y-8 text-white h-screen">
+    <div className="max-w-7xl mx-auto p-4 space-y-8 text-white">
       <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
-        हाम्रा कार्यक्रमहरु
+        कार्यक्रमहरू
       </h1>
 
-      {/* Grid of cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {programs.length === 0 ? (
-          <p className="text-center col-span-full">कार्यक्रमहरु खुल्दैछ...</p>
-        ) : (
-          programs.map((p) => (
-            <div
-              key={p.id}
-              onClick={() => setSelectedProgram(p)} // open modal
-              className="cursor-pointer bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
-              data-aos="fade-up"
-            >
-              <h2 className="text-xl font-semibold mb-2">{p.title.rendered}</h2>
-              <img
-                src={p.acf?.picture.url}
-                alt={p.title.rendered}
-                className="w-full max-h-96 object-cover rounded mb-4"
-              />
-              <p className="text-gray-700 mb-2">{p.acf?.description}</p>
-              <a
-                // href={p.link}
-                className="text-blue-600 hover:underline"
-                target="_blank"
-                // onClick={(e) => e.stopPropagation()} // prevent modal opening
-              >
-                ...पुरा पढ्नुहोस्
-              </a>
-            </div>
-          ))
-        )}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search programs..."
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          className="w-full md:w-1/2 p-2 rounded border border-gray-300 text-black"
+        />
       </div>
 
-      {/* Modal */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {loading
+          ? "Loading..."
+          : displayedItems.length === 0
+          ? "No programs found"
+          : displayedItems.map(item => (
+              <div
+                key={item.id}
+                className="cursor-pointer bg-gradient-to-r from-red-700 via-red-500 to-orange-300 rounded shadow p-4 hover:shadow-lg transition-transform transform hover:scale-105"
+                onClick={() => setSelectedProgram(item)}
+              >
+                <h2 className="text-xl font-semibold mb-1">{item.acf?.program_heading}</h2>
+                <p className="text-gray-300 text-sm mb-2">{item.acf?.start_date}</p>
+                {item.acf?.picture?.url && (
+                  <img
+                    src={item.acf.picture.url}
+                    alt={item.acf?.program_heading}
+                    className="w-full object-cover rounded mb-2 max-h-64"
+                  />
+                )}
+                <div className="text-gray-200 line-clamp-3">{item.acf?.text_contents}</div>
+              </div>
+            ))}
+      </div>
+
       {selectedProgram && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-lg max-w-3xl w-full overflow-y-auto max-h-full p-6 relative">
-            {/* Close button */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
             <button
-              className="absolute top-4 right-4 text-red-500 font-bold text-xl"
+              className="absolute top-3 right-3 text-red-500 text-2xl font-bold hover:text-red-700"
               onClick={() => setSelectedProgram(null)}
             >
               &times;
             </button>
-
-            {/* Modal content */}
-            <h2 className="text-2xl font-bold mb-4">{selectedProgram.title.rendered}</h2>
-
+            <h2 className="text-2xl font-bold mb-2">{selectedProgram.acf?.program_heading}</h2>
+            <p className="text-gray-600 text-sm mb-4">{selectedProgram.acf?.start_date}</p>
             {selectedProgram.acf?.picture?.url && (
               <img
                 src={selectedProgram.acf.picture.url}
-                alt={selectedProgram.title.rendered}
-                className="w-full max-h-96 object-cover rounded mb-4"
+                alt={selectedProgram.acf?.program_heading}
+                className="w-full mb-4 object-cover rounded"
               />
             )}
-
-            <p className="text-gray-900 mb-4">{selectedProgram.acf?.description}</p>
-
-            {selectedProgram.acf?.text_contents && (
-              <div className="text-gray-900" dangerouslySetInnerHTML={{ __html: selectedProgram.acf.text_contents.replace(/\r\n/g, "<br/>") }}></div>
-            )}
-
-            {/* <a
-              href={selectedProgram.link}
-              target="_blank"
-              className="mt-4 inline-block text-blue-600 hover:underline"
-            >
-              ...पुरा पढ्नुहोस्
-            </a> */}
+            <div className="text-gray-900 whitespace-pre-wrap">{selectedProgram.acf?.text_contents}</div>
           </div>
         </div>
       )}

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchGallery } from "../api/gallery";
+import { useTranslation } from "react-i18next";
 
 export default function GalleryPage() {
+  const { t } = useTranslation();
   const [images, setImages] = useState([]);
 
   useEffect(() => {

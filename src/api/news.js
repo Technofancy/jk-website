@@ -1,45 +1,51 @@
 // src/api/news.js
-export async function fetchNews() {
+export async function fetchNews(page = 1, perPage = 9) {
   try {
-    const [programsRes, pressRes] = await Promise.all([
-      fetch("https://jarokilo.org.np/wp/wp-json/wp/v2/programs?_embed"),
-      fetch("https://jarokilo.org.np/wp/wp-json/wp/v2/press-releases?_embed"),
-    ]);
+    // Fetch programs
+    const programsRes = await fetch(
+      `https://jarokilo.org.np/wp/wp-json/wp/v2/programs?_embed&per_page=${perPage}&page=${page}`
+    );
+    const programs = await programsRes.json();
 
-    const [programs, pressReleases] = await Promise.all([
-      programsRes.json(),
-      pressRes.json(),
-    ]);
+    // Fetch press releases
+    const pressRes = await fetch(
+      `https://jarokilo.org.np/wp/wp-json/wp/v2/press-releases?_embed&per_page=${perPage}&page=${page}`
+    );
+    const press = await pressRes.json();
 
-    // Normalizer
-    const normalize = (items, type) =>
-      items.map((item) => {
-        const acf = item.acf || {};
-        return {
-          id: item.id,
-          type, // "program" or "press"
-          title: item.title?.rendered || "",
-          excerpt: item.excerpt?.rendered || "",
-          link: item.link,
-          date: item.date,
-          // Fallback to featured image, or ACF picture if available
-          featured_media_url:
-            item._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-            acf.picture?.url ||
-            acf.image_proof?.url ||
-            null,
+    // Normalize items using ACF title
+    const normalize = (item, type) => ({
+      id: item.id,
+      type,
+      date: item.date,
+      title:
+        item.acf?.program_heading || // Programs
+        item.acf?.subject ||         // Press
+        "Untitled",
+      content: item.acf?.full_content || item.content?.rendered || "",
+      acf: item.acf || {},
+      featured_media_url:
+        item._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        item.acf?.image_proof?.url ||
+        item.acf?.picture?.url ||
+        null,
+    });
 
-          // Attach ACF fields for later use
-          acf,
-        };
-      });
+    // Merge and sort by date descending
+    const all = [
+      ...programs.map((p) => normalize(p, "कार्यक्रम")),
+      ...press.map((p) => normalize(p, "प्रेस विज्ञप्ति")),
+    ];
 
-    const allNews = [...normalize(programs, "program"), ...normalize(pressReleases, "press")];
+    // Remove duplicates (same type + id)
+    const unique = all.filter(
+      (v, i, a) => a.findIndex((x) => x.type === v.type && x.id === v.id) === i
+    );
 
     // Sort newest first
-    allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    unique.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    return allNews;
+    return unique;
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];
