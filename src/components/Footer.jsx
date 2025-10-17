@@ -13,6 +13,7 @@ export default function Footer() {
   const quickLinks = [
     { label: t("navbar.home"), to: "/" },
     { label: t("navbar.about"), to: "/about" },
+    { label: t("navbar.books"), to: "/books" },
     { label: t("navbar.programs"), to: "/programs" },
     { label: t("navbar.contact"), to: "/contact" },
   ];
@@ -32,7 +33,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links: Pages */}
           <div>
             <h3 className="text-xl font-bold mb-4">{t("footer.quickLinks")}</h3>
             <ul className="space-y-2">
@@ -74,7 +75,7 @@ export default function Footer() {
                 <span className="text-2xl">
                   <FaLocationDot />
                 </span>
-                <span className="text-muted">Kathmandu, Nepal</span>
+                <span className="text-muted">{t("footer.address")}</span>
               </div>
             </div>
 

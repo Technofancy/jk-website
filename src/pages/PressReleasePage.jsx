@@ -65,17 +65,17 @@ export default function PressReleasePage() {
   return (
     <div className="max-w-7xl mx-auto p-4 space-y-8 text-white">
       <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
-        प्रेस विज्ञप्ति
+        {t("press.title")}
       </h1>
 
       {/* Search */}
-      <div className="mb-4">
+      <div className="mb-4 place-self-center border-l-2 border-secondary-500 rounded-md">
         <input
           type="text"
-          placeholder="Search press..."
+          placeholder={t("press.placeholder")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full md:w-1/2 p-2 rounded border border-gray-300 text-black"
+          className="p-2 rounded border border-gray-300 text-black"
         />
       </div>
 

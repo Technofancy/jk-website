@@ -101,7 +101,7 @@ export default function HomePage() {
       <SEO
         title={t("home")}
         description={t("hero.description")}
-        keywords="Jaro Kilo Foundation, Nepal, Education, Technology, Community Development"
+        keywords="जरो, किलो, प्रतिष्ठान, Jaro, Kilo, Foundation, नेपाल, Nepal, Root, Locus, Education, Culture, Science, विज्ञान, Technology, प्रविधि, Dharma, धर्म, Sahridayata, सहृदयता, Kind-hearted, विचारधारा, Ideology, Sanatan, सनातन"
       />
 
       <div className="min-w-full">
@@ -112,10 +112,10 @@ export default function HomePage() {
         <section className="my-12" data-aos="fade-up">
           <div className="text-center mb-6 border-y-2 border-yellow-500 rounded-md py-2">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-700">
-              {t("homepage.facebookIframe.title")}
+              {t("homePage.facebookIframe.title")}
             </h2>
             <p className="text-muted mt-2">
-              {t("homepage.facebookIframe.description")}
+              {t("homePage.facebookIframe.description")}
             </p>
           </div>
           <div className="flex justify-center rounded-md border-x-2 border-yellow-500">
@@ -138,20 +138,24 @@ export default function HomePage() {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div data-aos="fade-right">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-primary-700">
-              {t("about.title")}
+              {t("homePage.aboutSection.title")}
             </h2>
             <div className="space-y-6">
               <div data-aos="fade-up" data-aos-delay="100">
                 <h3 className="text-xl font-semibold text-primary-600">
-                  {t("about.vision.title")}
+                  {t("homePage.aboutSection.vision.title")}
                 </h3>
-                <p className="text-text">{t("about.vision.text")}</p>
+                <p className="text-text">
+                  {t("homePage.aboutSection.vision.text")}
+                </p>
               </div>
               <div data-aos="fade-up" data-aos-delay="200">
                 <h3 className="text-xl font-semibold text-primary-600">
-                  {t("about.values.title")}
+                  {t("homePage.aboutSection.values.title")}
                 </h3>
-                <p className="text-text">{t("about.values.text")}</p>
+                <p className="text-text">
+                  {t("homePage.aboutSection.values.text")}
+                </p>
               </div>
             </div>
             <Link
@@ -160,7 +164,7 @@ export default function HomePage() {
               data-aos="fade-up"
               data-aos-delay="300"
             >
-              {t("hero.cta")}
+              {t("homePage.aboutSection.cta")}
             </Link>
           </div>
           <div
@@ -170,7 +174,9 @@ export default function HomePage() {
             <h3 className="text-2xl font-bold text-primary-600 mb-3">
               {t("hero.subtitle")}
             </h3>
-            <p className="text-text">{t("about.mission.text")}</p>
+            <p className="text-text">
+              {t("homePage.aboutSection.mission.text")}
+            </p>
           </div>
         </section>
 
@@ -181,14 +187,14 @@ export default function HomePage() {
               className="text-3xl sm:text-4xl font-bold text-red-700 mb-2"
               data-aos="fade-down"
             >
-              {t("homepage.programSlider.title")}
+              {t("homePage.programSlider.title")}
             </h2>
             <p
               className="text-muted mb-8"
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              {t("homepage.programSlider.subtitle")}
+              {t("homePage.programSlider.subtitle")}
             </p>
           </div>
 
@@ -204,7 +210,7 @@ export default function HomePage() {
             !errorPrograms &&
             (programs.length === 0 ? (
               <div className="py-10 text-muted">
-                अहिले कुनै कार्यक्रमहरू उपलब्ध छैनन्।
+                {t("homePage.programSlider.noPrograms")}
               </div>
             ) : (
               <Slider {...sliderSettings}>
@@ -229,14 +235,14 @@ export default function HomePage() {
                       {program.acf?.start_date}
                     </p>
                     <p className="text-muted line-clamp-3">
-                      {program.acf?.text_contents || t("programs.subtitle")}
+                      {program.acf?.text_contents}
                     </p>
                     <a
-              href="/programs"
-              className="inline-block mt-3 text-lg font-semibold text-yellow-600 hover:text-yellow-800 transition-colors"
-            >
-              {t("...")} →
-            </a>
+                      href="/programs"
+                      className="inline-block mt-3 text-xl font-semibold text-yellow-600 hover:text-yellow-800 transition-colors"
+                    >
+                      {t("...")} →
+                    </a>
                   </div>
                 ))}
               </Slider>
@@ -250,14 +256,14 @@ export default function HomePage() {
               className="text-3xl sm:text-4xl font-bold text-yellow-700 mb-2"
               data-aos="fade-down"
             >
-              {t("books.title")}
+              {t("homePage.bookSlider.title")}
             </h2>
             <p
               className="text-muted mb-8"
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              {t("books.subtitle")}
+              {t("homePage.bookSlider.subtitle")}
             </p>
           </div>
 
@@ -272,7 +278,9 @@ export default function HomePage() {
           {!loadingBooks &&
             !errorBooks &&
             (books.length === 0 ? (
-              <div className="py-10 text-muted">{t("books.noBooks")}</div>
+              <div className="py-10 text-muted">
+                {t("homePage.bookSlider.noBooks")}
+              </div>
             ) : (
               <Slider {...sliderSettings}>
                 {books.map((book, idx) => (
@@ -295,9 +303,7 @@ export default function HomePage() {
                     <p className="text-primary-700 font-medium text-sm mb-2">
                       {book.author}
                     </p>
-                    <p className="text-muted line-clamp-3">
-                      {book.excerpt || t("books.subtitle")}
-                    </p>
+                    <p className="text-muted line-clamp-3">{book.excerpt}</p>
                     {/* <a
               href="/books"
               className="inline-block mt-3 text-sm font-semibold text-yellow-600 hover:text-yellow-800 transition-colors"

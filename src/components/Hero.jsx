@@ -61,7 +61,7 @@ export default function Hero() {
     <div className="flex-1 mt-10 md:mt-0 flex justify-center" data-aos="fade-left">
       <img
         src={fourFoundationPillarImg}
-        alt={i18n.language === "np" ? "समुदाय" : "Community"}
+        alt={i18n.language === "np" ? "जरो किलो" : "Jaro Kilo"}
         className="max-w-sm md:max-w-md lg:max-w-lg rounded-xl shadow-2xl animate-fadeIn"
       />
     </div>

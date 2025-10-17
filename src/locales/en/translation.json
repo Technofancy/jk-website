@@ -1,22 +1,66 @@
 {
-  "homepage": {
-    "heroSlider": {
-      "title": "Jaro Kilo Pratishthan Nepal",
-      "subtitle": "Knowledge of Science, Progress of Technology. Concience of Dharma, Relation of Sahridayata.",
-      "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
-      "cta": "Learn More"
-    },
+  "home": "Home",
+  "about": "About Us",
+  "contact": "Contact",
+  "books": "Books",
+  "news": "News",
+  "press": "Press",
+  "programs": "Programs",
+  "gallery": "Gallery",
+
+  "navbar": {
+    "orgName": "Jaro Kilo Foundation Nepal",
+    "home": "Home",
+    "about": "About Us",
+    "books": "Books",
+    "news": "News",
+    "press": "Press",
+    "programs": "Programs",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+
+  "footer": {
+    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "address": "Kathmandu, Nepal",
+    "copyright": "© 2024 Jaro Kilo Pratishthan Nepal. All Rights Reserved."
+  },
+
+  "hero": {
+    "title": "Jaro Kilo Foundation Nepal",
+    "subtitle": "Knowledge of Science, Progress of Technology. Conscience of Dharma, Relation of Sahridayata.",
+    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and sahridayata.",
+    "cta": "Learn More",
+    "explore": "Explore Our Work"
+  },
+
+  "homePage": {
     "facebookIframe": {
       "title": "Our Facebook Page",
       "description": "See our latest activities and updates directly from Facebook."
     },
     "aboutSection": {
       "title": "About Us",
-      "subtitle": "Organization’s mission, vision, and values"
+      "subtitle": "Organization’s mission, vision, and values",
+      "cta": "Read More",
+      "mission": {
+        "title": "Our Mission",
+        "text": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "text": "Science with Dharma, and Dharma with Science"
+      },
+      "values": {
+        "title": "Our Values",
+        "text": "Integrity, innovation, inclusivity, and impact guide everything we do."
+      }
     },
     "programSlider": {
       "title": "Our Programs",
-      "subtitle": "Key initiatives for community and national development",
+      "subtitle": "Key initiatives for Society and National development...",
       "noPrograms": "No programs available at the moment. Please check back later."
     },
     "bookSlider": {
@@ -37,34 +81,6 @@
       "subtitle": "Feedback and experiences shared by community members",
       "noTestimonials": "No testimonials available at the moment. Please check back later."
     }
-  },
-
-  "home": "Home",
-  "about": "About Us",
-  "contact": "Contact",
-  "books": "Books",
-  "news": "News",
-  "press": "Press",
-  "programs": "Programs",
-  "gallery": "Gallery",
-
-  "navbar": {
-    "home": "Home",
-    "about": "About Us",
-    "books": "Books",
-    "news": "News",
-    "press": "Press",
-    "programs": "Programs",
-    "gallery": "Gallery",
-    "contact": "Contact"
-  },
-
-  "hero": {
-    "title": "Jaro Kilo Pratishthan Nepal",
-    "subtitle": "Knowledge of Science, Progress of Technology. Conscience of Dharma, Relation of Sahridayata.",
-    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and sahridayata.",
-    "cta": "Learn More",
-    "explore": "Explore Our Work"
   },
 
   "about": {
@@ -149,6 +165,7 @@
 
   "programs": {
     "title": "Our Programs",
+    "placeholder": "Search programs...",
     "education": "Education",
     "technology": "Technology",
     "community": "Community Development",
@@ -156,13 +173,15 @@
   },
 
   "books": {
-    "title": "Publications",
+    "title": "Our Publications",
+    "placeholder": "Search books...",
     "subtitle": "Explore our collection of books and research publications",
     "noBooks": "No books available at the moment. Please check back later."
   },
 
   "news": {
-    "title": "Latest News",
+    "title": "Our News",
+    "placeholder": "Search news...",
     "subtitle": "Stay updated with our recent activities and announcements",
     "readMore": "Read More",
     "noNews": "No news available at the moment. Please check back later."
@@ -170,6 +189,7 @@
 
   "press": {
     "title": "Press Releases",
+    "placeholder": "Search press releases...",
     "subtitle": "Official announcements and media coverage",
     "date": "Date",
     "noPress": "No press releases available at the moment. Please check back later."
@@ -185,6 +205,13 @@
     "title": "Contact Us",
     "subtitle": "Get in touch with us",
     "address": "Address",
+    "addressDetails": {
+      "street": "",
+      "city": "",
+      "district": "Kathmandu",
+      "state": "Bagmati",
+      "country": "Nepal"
+    },
     "phone": "Phone",
     "email": "Email",
     "form": {
@@ -199,15 +226,9 @@
     }
   },
 
-  "footer": {
-    "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
-    "quickLinks": "Quick Links",
-    "followUs": "Follow Us",
-    "copyright": "© 2024 Jaro Kilo Pratishthan Nepal. All Rights Reserved."
-  },
-
   "common": {
     "loading": "Loading...",
+    "loadMore": "Load More",
     "error": "An error occurred",
     "retry": "Retry",
     "close": "Close",
@@ -219,6 +240,7 @@
     "sort": "Sort",
     "previous": "Previous",
     "next": "Next",
+    "findus": "Find Us here",
 
     "joinUs": "Join Us",
     "joinText": "Collaborate with us to contribute to community development",

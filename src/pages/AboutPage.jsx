@@ -23,7 +23,7 @@ export default function AboutPage() {
         keywords="Jaro Kilo Foundation, Objectives, Team, Nepal"
       />
 
-      <div className="space-y-16 px-4 sm:px-6 lg:px-8">
+      <div className="space-y-16 px-4 sm:px-6 lg:px-8 min-h-screen pb-2">
         {/* Short Bar / About Us Title */}
         <section className="bg-primary-600 text-white py-2 my-4 text-center rounded">
           <h1 className="text-2xl sm:text-3xl font-bold">{about.title}</h1>
@@ -99,7 +99,7 @@ export default function AboutPage() {
 
         {/* Call to Action */}
         <section
-          className="bg-gradient-to-r from-primary-700 to-primary-500 text-text-inverted p-8 mb-2 sm:p-12 rounded-lg text-center shadow-lg"
+          className="bg-gradient-to-r from-primary-700 to-primary-500 p-8 sm:p-12 rounded-lg text-center shadow-lg"
           data-aos="zoom-in"
         >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4" data-aos="fade-up">

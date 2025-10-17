@@ -20,12 +20,15 @@ export async function fetchNews(page = 1, perPage = 9) {
       date: item.date,
       title:
         item.acf?.program_heading || // Programs
-        item.acf?.subject ||         // Press
+        item.acf?.subject || // Press
+        item.title?.rendered || // Fallback for default title field
         "Untitled",
       content: item.acf?.full_content || item.content?.rendered || "",
       acf: item.acf || {},
-      featured_media_url:
+      // Renamed from featured_media_url to image for consistency with NewsPage.jsx
+      image:
         item._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        item.featured_media?.source_url || // Added this as another potential source
         item.acf?.image_proof?.url ||
         item.acf?.picture?.url ||
         null,

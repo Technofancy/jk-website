@@ -27,7 +27,7 @@ export default function Navbar({ className = "" }) {
         <img src={logo} alt="Jaro Kilo Foundation logo" className="h-10 w-auto rounded sm:h-12" />
         <div className="flex flex-col text-center">
           <span className="whitespace-normal text-md sm:text-base md:text-md lg:text-xl text-center">
-            जरो किलो प्रतिष्ठान नेपाल
+            {t("navbar.orgName")}
           </span>
         </div>
       </Link>

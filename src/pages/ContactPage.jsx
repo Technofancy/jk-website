@@ -74,6 +74,7 @@ export default function ContactPage() {
         type: "error",
         message: "An error occurred. Please try again.",
       });
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -246,7 +247,7 @@ export default function ContactPage() {
               {/* Contact Details */}
               <div className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6 text-gray-100">
-                  Get in Touch
+                  {t("contact.subtitle")}
                 </h2>
 
                 <div className="space-y-6">
@@ -259,11 +260,11 @@ export default function ContactPage() {
                         {t("contact.address")}
                       </h3>
                       <p className="text-gray-300">
-                        {contactInfo.address.street}
+                        {t("contact.addressDetails.street")}, {t("contact.addressDetails.city")}
                         <br />
-                        {contactInfo.address.city}, {contactInfo.address.state}
+                        {t("contact.addressDetails.district")}, {t("contact.addressDetails.state")}
                         <br />
-                        {contactInfo.address.country}
+                        {t("contact.addressDetails.country")}
                       </p>
                     </div>
                   </div>
@@ -332,11 +333,11 @@ export default function ContactPage() {
                     <span className="font-medium text-blue-700">Facebook</span>
                   </a>
 
-                  <a
+                  {/* <a
                     href={contactInfo.socialMedia.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-sky-50 rounded-lg hover:bg-sky-100 transition-colors hidden"
+                    className="flex items-center space-x-3 p-3 bg-sky-50 rounded-lg hover:bg-sky-100 transition-colors "
                   >
                     <span className="text-2xl">🐦</span>
                     <span className="font-medium text-sky-700">Twitter</span>
@@ -346,38 +347,37 @@ export default function ContactPage() {
                     href={contactInfo.socialMedia.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors hidden"
+                    className="flex items-center space-x-3 p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
                   >
                     <span className="text-2xl">📺</span>
-                    <span className="font-medium text-red-700">YouTube</span>
+                    <span className="font-medium text-primary-700">YouTube</span>
                   </a>
 
                   <a
                     href={contactInfo.socialMedia.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors hidden"
+                    className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
                   >
                     <span className="text-2xl">💼</span>
                     <span className="font-medium text-blue-700">LinkedIn</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Map Section (Placeholder) */}
-          {/* Map Section (Fixed Styles) */}
+          {/* Map Section */}
           <div
             className="mt-16 bg-white p-8 rounded-lg shadow-lg"
             data-aos="fade-up"
             style={{ position: "relative" }}
           >
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Find Us</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">{t("common.findus")}</h2>
             <div className="bg-gray-200 rounded-lg flex flex-col items-center justify-start overflow-hidden">
               <div className="text-center text-gray-600 w-full">
                 <div className="text-4xl mb-2">🗺️</div>
-                <p className="text-sm mb-4">Kathmandu, Nepal</p>
+                <p className="text-sm mb-4">{t("contact.addressDetails.district")}</p>
 
                 <a href={mapUrl} target="_blank" rel="noreferrer">
                   <img

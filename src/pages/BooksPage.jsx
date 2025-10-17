@@ -69,7 +69,7 @@ export default function BooksPage() {
   }, [books, searchQuery, selectedCategory, filterBooks]);
 
   const handleSearch = (e) => setSearchQuery(e.target.value);
-  const handleCategoryChange = (cat) => setSelectedCategory(cat);
+  // const handleCategoryChange = (cat) => setSelectedCategory(cat);
 
   const handleLoadMore = () => {
     if (hasMore && !loading) {
@@ -83,22 +83,22 @@ export default function BooksPage() {
     <>
       <SEO title="Books" description="Books library" keywords="Books, Publications" />
 
-      <div className="space-y-8 max-w-7xl mx-auto px-4">
-        <section className="text-white bg-gradient-to-r from-red-700 via-red-500 to-orange-300 py-16 text-center rounded-lg">
-          <h1 className="text-5xl font-bold mb-4">Books Library</h1>
-          <p className="text-xl">Browse and explore our book collection.</p>
+      <div className="space-y-8 max-w-7xl mx-auto px-4 pb-2">
+        <section className="text-white bg-gradient-to-r from-primary-700 via-primary-500 to-orange-300 py-16 text-center rounded-lg">
+          <h1 className="text-5xl font-bold mb-4">{t("books.title")}</h1>
+          <p className="text-xl">{t("books.subtitle")}</p>
         </section>
 
-        <div className="bg-white p-4 rounded shadow flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="rounded-md place-self-center border-l-2 border-secondary-500">
           <input
             type="text"
-            placeholder="Search books..."
+            placeholder={t("books.placeholder")}
             value={searchQuery}
             onChange={handleSearch}
-            className="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-secondary-500 focus:border-transparent"
           />
           {/* Category buttons */}
-          <div className="flex gap-2 flex-wrap">
+          {/* <div className="flex gap-2 flex-wrap">
             {["all", "education", "culture", "technology", "research", "general"].map(cat => (
               <button
                 key={cat}
@@ -110,7 +110,7 @@ export default function BooksPage() {
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
               </button>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Books Grid */}
@@ -125,12 +125,12 @@ export default function BooksPage() {
                 {book.imageUrl ? (
                   <img src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-red-100 text-red-300 text-6xl">📖</div>
+                  <div className="w-full h-full flex items-center justify-center bg-primary-100 text-primary-300 text-6xl">📖</div>
                 )}
               </div>
               <div className="p-4">
                 <h3 className="font-bold text-lg line-clamp-2">{book.title}</h3>
-                <p className="text-red-600 text-sm">{book.author}</p>
+                <p className="text-primary-600 text-sm">{book.author}</p>
                 <p className="text-gray-600 text-sm line-clamp-3">{book.excerpt || "No description available"}</p>
                 <div className="flex justify-between text-xs text-gray-500 mt-2">
                   <span>{book.formattedDate}</span>
@@ -146,9 +146,9 @@ export default function BooksPage() {
           <div className="text-center mt-6">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+              className="px-6 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
             >
-              {loading ? "Loading..." : "Load More"}
+              {loading ? t("common.loading") : t("common.loadMore")}
             </button>
           </div>
         )}
@@ -172,10 +172,10 @@ export default function BooksPage() {
               )}
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold">{selectedBook.title}</h2>
-                <p className="text-red-600 font-medium">{selectedBook.author}</p>
+                <p className="text-primary-600 font-medium">{selectedBook.author}</p>
                 <div dangerouslySetInnerHTML={{ __html: selectedBook.content || selectedBook.excerpt }} />
                 {selectedBook.downloadUrl && (
-                  <a href={selectedBook.downloadUrl} target="_blank" className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">
+                  <a href={selectedBook.downloadUrl} target="_blank" className="bg-primary-600 text-gray-300 px-6 py-2 rounded hover:bg-primary-700">
                     Download PDF
                   </a>
                 )}

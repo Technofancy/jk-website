@@ -59,17 +59,17 @@ export default function ProgramsPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 space-y-8 text-white">
-      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-red-600 rounded-xl p-2">
-        कार्यक्रमहरू
+      <h1 className="text-4xl font-bold text-center mb-4 animate-fadeIn bg-primary-600 rounded-xl p-2">
+        {t("programs.title")}
       </h1>
 
-      <div className="mb-4">
+      <div className="mb-4 place-self-center border-l-2 border-secondary-500 rounded-md">
         <input
           type="text"
-          placeholder="Search programs..."
+          placeholder={t("programs.placeholder")}
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
-          className="w-full md:w-1/2 p-2 rounded border border-gray-300 text-black"
+          className="p-2 rounded border border-gray-300 text-black"
         />
       </div>
 
@@ -102,12 +102,12 @@ export default function ProgramsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
           <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
             <button
-              className="absolute top-3 right-3 text-red-500 text-2xl font-bold hover:text-red-700"
+              className="absolute top-3 right-3 text-primary-500 text-2xl font-bold hover:text-primary-700"
               onClick={() => setSelectedProgram(null)}
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold mb-2">{selectedProgram.acf?.program_heading}</h2>
+            <h2 className="text-2xl text-gray-700 font-bold mb-2">{selectedProgram.acf?.program_heading}</h2>
             <p className="text-gray-600 text-sm mb-4">{selectedProgram.acf?.start_date}</p>
             {selectedProgram.acf?.picture?.url && (
               <img
