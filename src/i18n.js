@@ -10,6 +10,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: "np", //Set Nepali as the default language
     fallbackLng: "np",
     resources: {
       np: { translation: npTranslation },
