@@ -83,7 +83,7 @@
     }
   },
 
-  "about": {
+  "aboutPage": {
     "title": "Jaro Kilo Pratishthan Nepal",
     "mission": {
       "title": "Our Mission",
@@ -163,23 +163,25 @@
     }
   },
 
-  "programs": {
+  "programsPage": {
     "title": "Our Programs",
+    "subtitle": "Key initiatives for Society and National development...",
     "placeholder": "Search programs...",
     "education": "Education",
     "technology": "Technology",
     "community": "Community Development",
-    "research": "Research & Innovation"
+    "research": "Research & Innovation",
+    "noPrograms": "No programs available at the moment. Please check back later."
   },
 
-  "books": {
+  "booksPage": {
     "title": "Our Publications",
     "placeholder": "Search books...",
     "subtitle": "Explore our collection of books and research publications",
     "noBooks": "No books available at the moment. Please check back later."
   },
 
-  "news": {
+  "newsPage": {
     "title": "Our News",
     "placeholder": "Search news...",
     "subtitle": "Stay updated with our recent activities and announcements",
@@ -187,7 +189,7 @@
     "noNews": "No news available at the moment. Please check back later."
   },
 
-  "press": {
+  "pressPage": {
     "title": "Press Releases",
     "placeholder": "Search press releases...",
     "subtitle": "Official announcements and media coverage",
@@ -195,13 +197,13 @@
     "noPress": "No press releases available at the moment. Please check back later."
   },
 
-  "gallery": {
+  "galleryPage": {
     "title": "Gallery",
     "subtitle": "Visual stories of our work and impact",
     "noImages": "No images available at the moment. Please check back later."
   },
 
-  "contact": {
+  "contactPage": {
     "title": "Contact Us",
     "subtitle": "Get in touch with us",
     "address": "Address",

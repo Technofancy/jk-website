@@ -83,8 +83,8 @@ export default function ContactPage() {
   return (
     <>
       <SEO
-        title={t("contact.title")}
-        description={t("contact.subtitle")}
+        title={t("contact")}
+        description={t("contactPage.subtitle")}
         keywords="Contact, Jaro Kilo Foundation, Nepal, सम्पर्क, जरो किलो प्रतिष्ठान"
       />
 
@@ -93,14 +93,14 @@ export default function ContactPage() {
         <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 text-white py-16">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h1 className="text-5xl font-bold mb-4" data-aos="fade-up">
-              {t("contact.title")}
+              {t("contactPage.title")}
             </h1>
             <p
               className="text-xl max-w-3xl mx-auto"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              {t("contact.subtitle")}
+              {t("contactPage.subtitle")}
             </p>
           </div>
         </section>
@@ -247,7 +247,7 @@ export default function ContactPage() {
               {/* Contact Details */}
               <div className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6 text-gray-100">
-                  {t("contact.subtitle")}
+                  {t("contactPage.subtitle")}
                 </h2>
 
                 <div className="space-y-6">
@@ -257,14 +257,14 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-100">
-                        {t("contact.address")}
+                        {t("contactPage.address")}
                       </h3>
                       <p className="text-gray-300">
-                        {t("contact.addressDetails.street")}, {t("contact.addressDetails.city")}
+                        {t("contactPage.addressDetails.street")}, {t("contactPage.addressDetails.city")}
                         <br />
-                        {t("contact.addressDetails.district")}, {t("contact.addressDetails.state")}
+                        {t("contactPage.addressDetails.district")}, {t("contactPage.addressDetails.state")}
                         <br />
-                        {t("contact.addressDetails.country")}
+                        {t("contactPage.addressDetails.country")}
                       </p>
                     </div>
                   </div>
@@ -275,9 +275,9 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-100">
-                        {t("contact.phone")}
+                        {t("contactPage.phone")}
                       </h3>
-                      <p className="text-gray-300">{contactInfo.phone}</p>
+                      <p className="text-gray-300">{t("contactPage.phoneDetails")}</p>
                     </div>
                   </div>
 
@@ -287,13 +287,13 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-100">
-                        {t("contact.email")}
+                        {t("contactPage.email")}
                       </h3>
                       <a
                         href={`mailto:${contactInfo.email}`}
                         className="text-red-600 hover:text-red-800 transition-colors"
                       >
-                        {contactInfo.email}
+                        {t("contactPage.emailDetails")}
                       </a>
                     </div>
                   </div>
@@ -377,7 +377,7 @@ export default function ContactPage() {
             <div className="bg-gray-200 rounded-lg flex flex-col items-center justify-start overflow-hidden">
               <div className="text-center text-gray-600 w-full">
                 <div className="text-4xl mb-2">🗺️</div>
-                <p className="text-sm mb-4">{t("contact.addressDetails.district")}</p>
+                <p className="text-sm mb-4">{t("contactPage.addressDetails.district")}</p>
 
                 <a href={mapUrl} target="_blank" rel="noreferrer">
                   <img

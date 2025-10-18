@@ -81,18 +81,18 @@ export default function BooksPage() {
 
   return (
     <>
-      <SEO title="Books" description="Books library" keywords="Books, Publications" />
+      <SEO title={t("books")} description="Books library" keywords="Books, Publications" />
 
       <div className="space-y-8 max-w-7xl mx-auto px-4 pb-2">
         <section className="text-white bg-gradient-to-r from-primary-700 via-primary-500 to-orange-300 py-16 text-center rounded-lg">
-          <h1 className="text-5xl font-bold mb-4">{t("books.title")}</h1>
-          <p className="text-xl">{t("books.subtitle")}</p>
+          <h1 className="text-5xl font-bold mb-4">{t("booksPage.title")}</h1>
+          <p className="text-xl">{t("booksPage.subtitle")}</p>
         </section>
 
         <div className="rounded-md place-self-center border-l-2 border-secondary-500">
           <input
             type="text"
-            placeholder={t("books.placeholder")}
+            placeholder={t("booksPage.placeholder")}
             value={searchQuery}
             onChange={handleSearch}
             className="px-4 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-secondary-500 focus:border-transparent"

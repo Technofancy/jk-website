@@ -13,20 +13,20 @@ export default function AboutPage() {
   }, []);
 
   // Fetch about object safely
-  const about = t("about", { returnObjects: true });
+  // const about = t("aboutPage", { returnObjects: true });
 
   return (
     <>
       <SEO
-        title={about.title}
-        description={about.introduction.text}
+        title={t("about")}
+        description={t("aboutPage.introduction.text")}
         keywords="Jaro Kilo Foundation, Objectives, Team, Nepal"
       />
 
       <div className="space-y-16 px-4 sm:px-6 lg:px-8 min-h-screen pb-2">
         {/* Short Bar / About Us Title */}
         <section className="bg-primary-600 text-white py-2 my-4 text-center rounded">
-          <h1 className="text-2xl sm:text-3xl font-bold">{about.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">{t("aboutPage.title")}</h1>
         </section>
 
         {/* Introduction & Objectives */}
@@ -34,18 +34,18 @@ export default function AboutPage() {
           {/* Left: Introduction + Objectives */}
           <div data-aos="fade-right">
             <h2 className="text-3xl font-bold text-primary-600 mb-4">
-              {about.introduction.title}
+              {t("aboutPage.introduction.title")}
             </h2>
             <p className="text-gray-700 leading-relaxed mb-6">
-              {about.introduction.text}
+              {t("aboutPage.introduction.text")}
             </p>
 
             <h3 className="text-2xl font-semibold text-primary-600 mb-3">
-              {about.objectives.title}
+              {t("aboutPage.objectives.title")}
             </h3>
             <ul className="list-disc list-inside text-muted space-y-2">
-              {about.objectives.list.map((obj, idx) => (
-                <li key={idx}>{obj}</li>
+              {t("aboutPage.objectives.list", { returnObjects: true }).map((obj, idx) => (
+                <li key={idx}>{t(obj)}</li>
               ))}
             </ul>
           </div>
@@ -72,26 +72,26 @@ export default function AboutPage() {
               className="text-4xl font-bold text-red-600"
               data-aos="fade-down"
             >
-              {about.foundingMembers.title}
+              {t("aboutPage.foundingMembers.title")}
             </h2>
             <p
               className="text-lg text-gray-600 mt-2 "
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              {about.foundingMembers.chairperson}
+              {t("aboutPage.foundingMembers.chairperson")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {about.foundingMembers.members.map((member, idx) => (
+            {t("aboutPage.foundingMembers.members", { returnObjects: true }).map((member, idx) => (
               <div
                 key={idx}
                 className="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-xl transition-all duration-100 transform hover:-translate-y-1 hover:scale-105 border-l-4 border-yellow-400"
                 data-aos="fade-up"
                 data-aos-delay={idx * 10}
               >
-                <p className="text-gray-800">{member}</p>
+                <p className="text-gray-800">{t(member)}</p>
               </div>
             ))}
           </div>
