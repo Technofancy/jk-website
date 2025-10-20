@@ -242,6 +242,7 @@ export default function HomePage() {
           )}
         </section>
 
+
         <section className="text-center mt-16">
           <div className="border-y-2 border-primary-default rounded-md py-2 mt-2">
             <motion.h2

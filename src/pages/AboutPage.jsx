@@ -32,7 +32,7 @@ export default function AboutPage() {
       <SEO
         title={t("about")}
         description={t("aboutPage.introduction.text")}
-        keywords="Jaro Kilo Foundation, Objectives, Team, Nepal"
+        keywords="Jaro Kilo Foundation, Objectives, Team, Members, About, Nepal, नेपाल"
       />
 
       <div className="space-y-16 px-4 sm:px-6 lg:px-8 min-h-screen pb-2">

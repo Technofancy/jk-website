@@ -13,8 +13,7 @@ export default function SEO({
   
   const defaultTitle = t("hero.title");
   const defaultDescription = t("hero.description");
-  const siteUrl = "https://jarokilofoundation.org"; // Replace with actual domain
-  
+  const siteUrl = "https://jarokilo.org.np";
   const seoTitle = title ? `${title} | ${defaultTitle}` : defaultTitle;
   const seoDescription = description || defaultDescription;
   const seoImage = image || `${siteUrl}/JK_pratisthanLogo.png`;

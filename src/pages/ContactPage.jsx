@@ -130,7 +130,7 @@ export default function ContactPage() {
               variants={itemVariants}
             >
               <h2 className="text-2xl font-bold mb-6 text-text-primary">
-                Send us a Message
+                {t("contactPage.form.title")}
               </h2>
 
               {submitStatus && (
@@ -145,13 +145,13 @@ export default function ContactPage() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 blur-[2px]">
                 <div>
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium text-text-secondary mb-2"
                   >
-                    {t("contact.form.name")} *
+                    {t("contactPage.form.name")} *
                   </label>
                   <input
                     type="text"
@@ -178,7 +178,7 @@ export default function ContactPage() {
                     htmlFor="email"
                     className="block text-sm font-medium text-text-secondary mb-2"
                   >
-                    {t("contact.form.email")} *
+                    {t("contactPage.form.email")} *
                   </label>
                   <input
                     type="email"
@@ -205,7 +205,7 @@ export default function ContactPage() {
                     htmlFor="subject"
                     className="block text-sm font-medium text-text-secondary mb-2"
                   >
-                    {t("contact.form.subject")} *
+                    {t("contactPage.form.subject")} *
                   </label>
                   <input
                     type="text"
@@ -232,7 +232,7 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="block text-sm font-medium text-text-secondary mb-2"
                   >
-                    {t("contact.form.message")} *
+                    {t("contactPage.form.message")} *
                   </label>
                   <textarea
                     id="message"
@@ -256,13 +256,14 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled
+                  // disabled={isSubmitting}
                   className="w-full"
                   variant="primary"
                 >
                   {isSubmitting
-                    ? t("contact.form.sending")
-                    : t("contact.form.send")}
+                    ? t("contactPage.form.sending")
+                    : t("contactPage.form.send")}
                 </Button>
               </form>
             </motion.div>
@@ -328,7 +329,7 @@ export default function ContactPage() {
                 </h2>
                 <div className="grid grid-cols-1 gap-4">
                   <a
-                    href={contactInfo.socialMedia.facebook}
+                    href="https://www.facebook.com/JAROKILOPRATISHTHANEPAL/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-3 p-3 bg-surface-sunken rounded-lg hover:bg-surface-hover transition-colors"

@@ -28,7 +28,7 @@
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
     "address": "Kathmandu, Nepal",
-    "copyright": "© 2024 Jaro Kilo Pratishthan Nepal. All Rights Reserved."
+    "copyright": "© 2082 B.S. (2025 ) Jaro Kilo Pratishthan Nepal. All Rights Reserved."
   },
 
   "hero": {
@@ -195,7 +195,15 @@
     "title": "Our Publications",
     "placeholder": "Search books...",
     "subtitle": "Explore our collection of books and research publications",
-    "noBooks": "No books available at the moment. Please check back later."
+    "noBooks": "No books available at the moment. Please check back later.",
+    "download": "Download",
+    "bookModel": {
+      "title": "Title",
+      "author": "Author",
+      "publicationDate": "Publication Date",
+      "description": "Description",
+      "Isbn": "ISBN"
+    }
   },
 
   "newsPage": {
@@ -241,6 +249,7 @@
     "emailDetails": "jarokilo.org.np",
     "form": {
       "_description": "Translations for the contact form fields and messages.",
+      "title": "Send Us a Message",
       "name": "Full Name",
       "email": "Email Address",
       "subject": "Subject",
@@ -268,6 +277,7 @@
     "previous": "Previous",
     "next": "Next",
     "findus": "Find Us here",
+    "date": "Date",
 
     "joinUs": "Join Us",
     "joinText": "Collaborate with us to contribute to community development",

@@ -45,7 +45,7 @@ function NewsDetailModal({ item, onClose, loading }) {
       >
         {loading ? (
           <div className="flex-grow flex items-center justify-center">
-            <Loading text={t("newsPage.loadingDetails")} />
+            <Loading text={t("common.loading")} />
           </div>
         ) : (
           item && (

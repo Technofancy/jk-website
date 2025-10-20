@@ -193,7 +193,7 @@ export default function PressReleasePage() {
       <SEO
         title={t("press")}
         description={t("pressPage.description")}
-        keywords={t("pressPage.keywords")}
+        keywords="Jaro Kilo Foundation, Press Releases, Nepal, नेपाल"
       />
       <div className="max-w-7xl mx-auto p-4 space-y-8 text-text-default pb-6 min-h-screen">
         <motion.section
@@ -225,7 +225,7 @@ export default function PressReleasePage() {
         </motion.div>
 
         {loading && items.length === 0 ? (
-          <Loading size="large" text={t("pressPage.loading")} />
+          <Loading size="large" text={t("common.loading")} />
         ) : (
           <>
             <motion.div
@@ -275,7 +275,7 @@ export default function PressReleasePage() {
                 ))
               ) : (
                 <p className="text-center col-span-full">
-                  {t("pressPage.noResults")}
+                  {t("pressPage.noPress")}
                 </p>
               )}
             </motion.div>

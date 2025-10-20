@@ -45,7 +45,7 @@ function ProgramDetailModal({ item, onClose, loading }) {
       >
         {loading ? (
           <div className="flex-grow flex items-center justify-center">
-            <Loading text={t("programsPage.loadingDetails")} />
+            <Loading text={t("common.loading")} />
           </div>
         ) : (
           item && (
@@ -72,7 +72,7 @@ function ProgramDetailModal({ item, onClose, loading }) {
                   />
                 )}
                 <p className="text-secondary-default text-sm mb-4">
-                  <strong>{t("programsPage.date")}:</strong>{" "}
+                  <strong>{t("common.date")}:</strong>{" "}
                   {item.acf?.start_date} - {item.acf?.end_date}
                 </p>
                 <div
@@ -226,7 +226,7 @@ export default function ProgramsPage() {
         </motion.div>
 
         {loading && programs.length === 0 ? (
-          <Loading size="large" text={t("programsPage.loading")} />
+          <Loading size="large" text={t("common.loading")} />
         ) : (
           <>
             <motion.div

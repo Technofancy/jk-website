@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { fetchBooks, fetchBookBySlug } from "../api/books";
 import { useTranslation } from "react-i18next";
-import { FaSearch, FaBook } from "react-icons/fa";
+import { FaSearch, FaBook, FaDownload } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import SEO from "../components/ui/SEO";
@@ -45,14 +45,14 @@ function BookDetailModal({ book, onClose, loading }) {
       >
         {loading ? (
           <div className="flex-grow flex items-center justify-center">
-            <Loading text={t("booksPage.loadingDetails")} />
+            <Loading text={t("common.loading")} />
           </div>
         ) : (
           book && (
             <>
               <div className="p-4 border-b border-border-default flex justify-between items-center flex-shrink-0">
                 <h2 className="text-xl md:text-2xl font-bold text-primary-default">
-                  {book.title}
+                  {t("booksPage.bookModel.title")}: {book.title}
                 </h2>
                 <Button
                   variant="ghost"
@@ -75,17 +75,20 @@ function BookDetailModal({ book, onClose, loading }) {
                   </div>
                   <div className="md:col-span-2 space-y-4">
                     <p>
-                      <strong>{t("booksPage.author")}:</strong> {book.author}
+                      <strong>{t("booksPage.bookModel.author")}:</strong>{" "}
+                      {book.author}
                     </p>
-                    <p>
-                      <strong>{t("booksPage.category")}:</strong>{" "}
+                    {/* <p>
+                      <strong>{t("booksPage.bookModel.category")}:</strong>{" "}
                       {book.category}
-                    </p>
+                    </p> */}
+                    {/* <p>
+                      <strong>{t("booksPage.bookModel.pages")}:</strong>{" "}
+                      {book.pages}
+                    </p> */}
                     <p>
-                      <strong>{t("booksPage.pages")}:</strong> {book.pages}
-                    </p>
-                    <p>
-                      <strong>{t("booksPage.isbn")}:</strong> {book.isbn}
+                      <strong>{t("booksPage.bookModel.Isbn")}:</strong>{" "}
+                      {book.isbn}
                     </p>
                     {book.downloadLink && (
                       <Button
@@ -94,6 +97,7 @@ function BookDetailModal({ book, onClose, loading }) {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
+                        <FaDownload className="mr-2" />
                         {t("booksPage.download")}
                       </Button>
                     )}

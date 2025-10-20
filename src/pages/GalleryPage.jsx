@@ -149,7 +149,7 @@ export default function GalleryPage() {
         </motion.section>
 
         {loading && images.length === 0 ? (
-          <Loading size="large" text={t("galleryPage.loading")} />
+          <Loading size="large" text={t("common.loading")} />
         ) : (
           <>
             <motion.div
@@ -185,7 +185,7 @@ export default function GalleryPage() {
                 ))
               ) : (
                 <p className="text-center col-span-full">
-                  {t("galleryPage.noResults")}
+                  {t("galleryPage.noImages")}
                 </p>
               )}
             </motion.div>
