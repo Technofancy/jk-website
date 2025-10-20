@@ -31,10 +31,10 @@ export default function Navbar({ className = "" }) {
   };
 
   return (
-    <nav className={`bg-surface-100 text-text-default px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 border-b-4 border-secondary-500 ${className}`}>
+    <nav className={`bg-background backdrop-blur-sm text-text-default px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 border-b-4 border-secondary-500 ${className}`}>
       <Link to="/" className="flex items-center gap-3 text-2xl font-bold cursor-pointer z-50">
         <img src={logo} alt="Jaro Kilo Foundation logo" className="h-10 w-auto rounded sm:h-12" />
-        <div className="sm:flex flex-col text-center">
+        <div className="flex flex-col text-center">
           <span className="whitespace-normal text-md text-sm sm:text-md   lg:text-xl text-center">
             {t("navbar.orgName")}
           </span>
@@ -80,7 +80,7 @@ export default function Navbar({ className = "" }) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-16 left-0 right-0 z-40 md:hidden mt-0 bg-surface-default p-2 rounded-b shadow-lg border-t border-surface-200"
+            className="absolute top-16 left-0 right-0 z-40 md:hidden mt-0 bg-surface-default p-2 rounded-b shadow-lg border-t border-surface-200 backdrop-blur-lg"
           >
             <div className="flex flex-col space-y-2">
               {links.map((l) => (

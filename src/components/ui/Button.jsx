@@ -7,7 +7,7 @@ const Button = ({ children, onClick, type = 'button', variant = 'primary', size 
   const variantStyles = {
     primary: 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500',
     secondary: 'bg-secondary-500 text-black hover:bg-secondary-600 focus:ring-secondary-500',
-    ghost: 'hover:bg-surface-100 hover:text-text-default focus:ring-primary-500',
+    ghost: 'hover:text-text-default focus:ring-primary-500',
     link: 'text-primary-500 underline-offset-4 hover:underline focus:ring-primary-500',
   };
 
