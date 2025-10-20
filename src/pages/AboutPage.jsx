@@ -1,19 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { motion } from "framer-motion";
+import SEO from "../components/ui/SEO";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0 },
+};
 
 export default function AboutPage() {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: true, easing: "ease-in-out" });
-  }, []);
-
-  // Fetch about object safely
-  // const about = t("aboutPage", { returnObjects: true });
 
   return (
     <>
@@ -25,33 +37,49 @@ export default function AboutPage() {
 
       <div className="space-y-16 px-4 sm:px-6 lg:px-8 min-h-screen pb-2">
         {/* Short Bar / About Us Title */}
-        <section className="bg-primary-600 text-white py-2 my-4 text-center rounded">
+        <motion.section
+          className="bg-primary-default text-text-on-primary py-2 my-4 text-center rounded"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-2xl sm:text-3xl font-bold">{t("aboutPage.title")}</h1>
-        </section>
+        </motion.section>
 
         {/* Introduction & Objectives */}
-        <section className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+        <motion.section
+          className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-start"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {/* Left: Introduction + Objectives */}
-          <div data-aos="fade-right">
-            <h2 className="text-3xl font-bold text-primary-600 mb-4">
+          <motion.div variants={itemVariants}>
+            <h2 className="text-3xl font-bold text-primary-default mb-4">
               {t("aboutPage.introduction.title")}
             </h2>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <p className="text-text-muted leading-relaxed mb-6">
               {t("aboutPage.introduction.text")}
             </p>
 
-            <h3 className="text-2xl font-semibold text-primary-600 mb-3">
+            <h3 className="text-2xl font-semibold text-primary-default mb-3">
               {t("aboutPage.objectives.title")}
             </h3>
-            <ul className="list-disc list-inside text-muted space-y-2">
+            <ul className="list-disc list-inside text-text-muted space-y-2">
               {t("aboutPage.objectives.list", { returnObjects: true }).map((obj, idx) => (
-                <li key={idx}>{t(obj)}</li>
+                <motion.li key={idx} custom={idx} variants={itemVariants}>
+                  {t(obj)}
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Right: Facebook iframe */}
-          <div data-aos="fade-left" className="w-full h-fit items-center border-x-2 border-yellow-500 rounded-md">
+          <motion.div
+            className="w-full h-fit items-center border-x-2 border-primary-default rounded-md"
+            variants={itemVariants}
+          >
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
               width="340"
@@ -62,71 +90,73 @@ export default function AboutPage() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen={true}
             />
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
         {/* Founding Members */}
-        <section className="py-16 mt-14 bg-gray-50 rounded-lg">
-          <div className="max-w-6xl mx-auto text-center mb-12 shadow-lg rounded-md py-2 border-y-2 border-yellow-400">
-            <h2
-              className="text-4xl font-bold text-red-600"
-              data-aos="fade-down"
-            >
+        <motion.section
+          className="py-16 mt-14 bg-surface-subtle rounded-lg"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.div
+            className="max-w-6xl mx-auto text-center mb-12 shadow-lg rounded-md py-2 border-y-2 border-primary-default"
+            variants={itemVariants}
+          >
+            <h2 className="text-4xl font-bold text-primary-default">
               {t("aboutPage.foundingMembers.title")}
             </h2>
-            <p
-              className="text-lg text-gray-600 mt-2 "
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+            <p className="text-lg text-text-muted mt-2">
               {t("aboutPage.foundingMembers.chairperson")}
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
             {t("aboutPage.foundingMembers.members", { returnObjects: true }).map((member, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-xl transition-all duration-100 transform hover:-translate-y-1 hover:scale-105 border-l-4 border-yellow-400"
-                data-aos="fade-up"
-                data-aos-delay={idx * 10}
-              >
-                <p className="text-gray-800">{t(member)}</p>
-              </div>
+              <motion.div key={idx} custom={idx} variants={itemVariants}>
+                <Card className="text-center border-l-4 border-primary-default rounded-l-md">
+                  <p className="text-text-default">{t(member)}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* Call to Action */}
-        <section
-          className="bg-gradient-to-r from-primary-700 to-primary-500 p-8 sm:p-12 rounded-lg text-center shadow-lg"
-          data-aos="zoom-in"
+        <motion.section
+          className="bg-primary-default p-8 sm:p-12 rounded-lg text-center shadow-lg text-text-on-primary"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4" data-aos="fade-up">
-              {t("common.joinUs")}
-            </h2>
-            <p className="text-lg mb-6" data-aos="fade-up" data-aos-delay="100">
-              {t("common.joinText")}
-            </p>
-            <div
-              className="flex flex-col sm:flex-row justify-center gap-4"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <Link
-                to="/contact"
-                className="bg-secondary-400 text-primary-800 px-6 py-3 rounded-lg font-semibold motion-safe:transition-colors motion-safe:duration-200 hover:bg-secondary-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
-              >
+          <motion.h2
+            className="text-2xl sm:text-3xl font-bold mb-4"
+            variants={itemVariants}
+          >
+            {t("common.joinUs")}
+          </motion.h2>
+          <motion.p className="text-lg mb-6" variants={itemVariants}>
+            {t("common.joinText")}
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            variants={itemVariants}
+          >
+            <Link to="/contact">
+              <Button variant="inverted">
                 {t("common.contact")}
-              </Link>
-              <Link
-                to="/programs"
-                className="border-2 text-secondary-300 border-secondary-300 px-6 py-3 rounded-lg font-semibold motion-safe:transition-colors motion-safe:duration-200 hover:bg-secondary-400 hover:text-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-400"
-              >
+              </Button>
+            </Link>
+            <Link to="/programs">
+              <Button variant="inverted-secondary">
                 {t("common.viewPrograms")}
-              </Link>
-            </div>
-        </section>
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.section>
       </div>
     </>
   );

@@ -4,10 +4,9 @@ import ThemeProvider from "./contexts/ThemeProvider";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "aos/dist/aos.css";
 
-import Layout from "./components/Layout";
-import ScrollToTop from './components/ScrollToTop';
+import Layout from "./components/layout/Layout";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 
 // Route-based code splitting

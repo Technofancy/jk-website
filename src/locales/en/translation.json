@@ -1,4 +1,5 @@
 {
+  "_description": "Root-level keys for general use, like page titles.",
   "home": "Home",
   "about": "About Us",
   "contact": "Contact",
@@ -9,6 +10,7 @@
   "gallery": "Gallery",
 
   "navbar": {
+    "_description": "Translations for the main navigation bar.",
     "orgName": "Jaro Kilo Foundation Nepal",
     "home": "Home",
     "about": "About Us",
@@ -21,6 +23,7 @@
   },
 
   "footer": {
+    "_description": "Translations for the site footer.",
     "description": "Dedicated to running programs that rejuvenate communities through education, culture, and compassion.",
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
@@ -29,6 +32,7 @@
   },
 
   "hero": {
+    "_description": "Translations for the hero section on the home page.",
     "title": "Jaro Kilo Foundation Nepal",
     "subtitle": "Knowledge of Science, Progress of Technology. Conscience of Dharma, Relation of Sahridayata.",
     "description": "Dedicated to running programs that rejuvenate communities through education, culture, and sahridayata.",
@@ -37,11 +41,14 @@
   },
 
   "homePage": {
+    "_description": "Translations specific to the Home page content.",
     "facebookIframe": {
+      "_description": "Content related to the Facebook iframe section.",
       "title": "Our Facebook Page",
       "description": "See our latest activities and updates directly from Facebook."
     },
     "aboutSection": {
+      "_description": "Content for the 'About Us' summary section on the home page.",
       "title": "About Us",
       "subtitle": "Organization’s mission, vision, and values",
       "cta": "Read More",
@@ -59,16 +66,19 @@
       }
     },
     "programSlider": {
+      "_description": "Content for the program slider on the home page.",
       "title": "Our Programs",
       "subtitle": "Key initiatives for Society and National development...",
       "noPrograms": "No programs available at the moment. Please check back later."
     },
     "bookSlider": {
+      "_description": "Content for the book slider on the home page.",
       "title": "Publications",
       "subtitle": "Explore our collection of books and research publications",
       "noBooks": "No books available at the moment. Please check back later."
     },
     "callToAction": {
+      "_description": "Content for the call-to-action section.",
       "title": "Join Us",
       "description": "Collaborate with us to contribute to community development and bring positive change.",
       "buttons": {
@@ -77,6 +87,7 @@
       }
     },
     "testimonials": {
+      "_description": "Content for the testimonials section.",
       "title": "Our Testimonials",
       "subtitle": "Feedback and experiences shared by community members",
       "noTestimonials": "No testimonials available at the moment. Please check back later."
@@ -84,6 +95,7 @@
   },
 
   "aboutPage": {
+    "_description": "Translations specific to the About Us page.",
     "title": "Jaro Kilo Pratishthan Nepal",
     "mission": {
       "title": "Our Mission",
@@ -98,10 +110,12 @@
       "text": "Integrity, innovation, inclusivity, and impact guide everything we do."
     },
     "introduction": {
+      "_description": "Detailed introduction of the organization.",
       "title": "Introduction",
       "text": "Jaro Kilo Pratishthan Nepal is registered with the Office of the Company Registrar under the Ministry of Industry, Government of Nepal, and affiliated with the Social Welfare Council of Nepal. As a non-profit service organization, it undertakes institutional initiatives to research, promote, and develop Nepal’s indigenous religions, culture, philosophy, traditions, arts, rituals, knowledge, craftsmanship, skills, yoga, Ayurveda, agriculture, and more. The organization was founded with a commitment to contribute to Nepal’s progress, prosperity, and development through activities in religious, cultural, social, educational, and economic fields. Jaro Kilo Pratishthan Nepal is dedicated to creating opportunities for entrepreneurship, employment, and personality development for Nepalese people, thereby contributing to the national economy and laying the foundation of a 'Compassionate Economy.' The organization envisions a 'Scientific Era of Truth,' based on the four pillars: 'Intelligence of Science, Advancement of Technology, Wisdom of Religion, Relation of Compassion.'"
     },
     "objectives": {
+      "_description": "List of the organization's objectives.",
       "title": "Objectives",
       "list": [
         "Explore, research, develop, and promote Nepal’s indigenous religions, culture, philosophy, traditions, arts, rituals, knowledge, craftsmanship, skills, and Ayurveda.",
@@ -117,6 +131,7 @@
       ]
     },
     "foundingMembers": {
+      "_description": "List of the founding members.",
       "title": "Founding Members",
       "chairperson": "Founding Chairperson: Dr. Nirmalmani Adhikari",
       "members": [
@@ -164,6 +179,7 @@
   },
 
   "programsPage": {
+    "_description": "Translations for the Programs page.",
     "title": "Our Programs",
     "subtitle": "Key initiatives for Society and National development...",
     "placeholder": "Search programs...",
@@ -175,6 +191,7 @@
   },
 
   "booksPage": {
+    "_description": "Translations for the Books page.",
     "title": "Our Publications",
     "placeholder": "Search books...",
     "subtitle": "Explore our collection of books and research publications",
@@ -182,6 +199,7 @@
   },
 
   "newsPage": {
+    "_description": "Translations for the News page.",
     "title": "Our News",
     "placeholder": "Search news...",
     "subtitle": "Stay updated with our recent activities and announcements",
@@ -190,6 +208,7 @@
   },
 
   "pressPage": {
+    "_description": "Translations for the Press Releases page.",
     "title": "Press Releases",
     "placeholder": "Search press releases...",
     "subtitle": "Official announcements and media coverage",
@@ -198,12 +217,14 @@
   },
 
   "galleryPage": {
+    "_description": "Translations for the Gallery page.",
     "title": "Gallery",
     "subtitle": "Visual stories of our work and impact",
     "noImages": "No images available at the moment. Please check back later."
   },
 
   "contactPage": {
+    "_description": "Translations for the Contact Us page.",
     "title": "Contact Us",
     "subtitle": "Get in touch with us",
     "address": "Address",
@@ -215,8 +236,11 @@
       "country": "Nepal"
     },
     "phone": "Phone",
+    "phoneDetails": "+977-985-1150300",
     "email": "Email",
+    "emailDetails": "jarokilo.org.np",
     "form": {
+      "_description": "Translations for the contact form fields and messages.",
       "name": "Full Name",
       "email": "Email Address",
       "subject": "Subject",
@@ -229,6 +253,7 @@
   },
 
   "common": {
+    "_description": "Commonly used translations throughout the application.",
     "loading": "Loading...",
     "loadMore": "Load More",
     "error": "An error occurred",

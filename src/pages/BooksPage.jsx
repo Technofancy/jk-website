@@ -1,46 +1,175 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { fetchBooks } from "../api/books";
-import SEO from "../components/SEO";
-import Loading from "../components/Loading";
+import { motion } from "framer-motion";
+import { fetchBooks, fetchBookBySlug } from "../api/books";
 import { useTranslation } from "react-i18next";
+import { FaSearch, FaBook } from "react-icons/fa";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import SEO from "../components/ui/SEO";
+import Card from "../components/ui/Card";
+import Button from "../components/ui/Button";
+import Loading from "../components/ui/Loading";
+
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+function BookDetailModal({ book, onClose, loading }) {
+  const { t } = useTranslation();
+
+  if (!book && !loading) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/70 backdrop-blur-lg flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-surface-default rounded-lg shadow-xl w-full max-w-4xl h-full max-h-[90vh] flex flex-col"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {loading ? (
+          <div className="flex-grow flex items-center justify-center">
+            <Loading text={t("booksPage.loadingDetails")} />
+          </div>
+        ) : (
+          book && (
+            <>
+              <div className="p-4 border-b border-border-default flex justify-between items-center flex-shrink-0">
+                <h2 className="text-xl md:text-2xl font-bold text-primary-default">
+                  {book.title}
+                </h2>
+                <Button
+                  variant="ghost"
+                  onClick={onClose}
+                  className="text-red-500 hover:text-red-700 text-3xl"
+                >
+                  &times;
+                </Button>
+              </div>
+              <div className="p-4 md:p-6 overflow-y-auto flex-grow">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="md:col-span-1">
+                    {book.imageUrl && (
+                      <img
+                        src={book.imageUrl}
+                        alt={book.title}
+                        className="w-full h-auto object-cover rounded-lg shadow-md"
+                      />
+                    )}
+                  </div>
+                  <div className="md:col-span-2 space-y-4">
+                    <p>
+                      <strong>{t("booksPage.author")}:</strong> {book.author}
+                    </p>
+                    <p>
+                      <strong>{t("booksPage.category")}:</strong>{" "}
+                      {book.category}
+                    </p>
+                    <p>
+                      <strong>{t("booksPage.pages")}:</strong> {book.pages}
+                    </p>
+                    <p>
+                      <strong>{t("booksPage.isbn")}:</strong> {book.isbn}
+                    </p>
+                    {book.downloadLink && (
+                      <Button
+                        as="a"
+                        href={book.downloadLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t("booksPage.download")}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className="prose prose-lg max-w-none mt-6 text-text-secondary"
+                  dangerouslySetInnerHTML={{ __html: book.content }}
+                ></div>
+              </div>
+            </>
+          )
+        )}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function BooksPage() {
   const { t } = useTranslation();
   const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalLoading, setIsModalLoading] = useState(false);
+
+  useEffect(() => {
+    if (selectedBook || isModalLoading) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [selectedBook, isModalLoading]);
+
+  const categories = ["All", "General", "Research", "Spiritual"];
 
   const deduplicate = (arr) => {
     const seen = new Set();
-    return arr.filter(item => {
+    return arr.filter((item) => {
       if (seen.has(item.id)) return false;
       seen.add(item.id);
       return true;
     });
   };
 
-  const loadBooks = async (nextPage = 1) => {
-    setLoading(true);
-    try {
-      const data = await fetchBooks({ per_page: 12, page: nextPage });
-      if (data.length === 0) {
+  const loadBooks = useCallback(
+    async (nextPage = 1) => {
+      if (nextPage > totalPages && totalPages > 1) {
         setHasMore(false);
+        return;
       }
-      setBooks(prev => deduplicate([...prev, ...data]));
-    } catch (err) {
-      console.error("Failed to load books:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+      setLoading(true);
+      try {
+        const { items: newBooks, totalPages: newTotalPages } =
+          await fetchBooks(nextPage, 12);
+        setTotalPages(newTotalPages);
+        if (newBooks.length === 0 || nextPage >= newTotalPages) {
+          setHasMore(false);
+        }
+        setBooks((prev) => deduplicate([...prev, ...newBooks]));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [totalPages]
+  );
 
   useEffect(() => {
-    loadBooks();
+    loadBooks(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,17 +177,16 @@ export default function BooksPage() {
     let filtered = books;
 
     if (searchQuery.trim()) {
-      filtered = filtered.filter(book =>
-        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+      const lowercasedQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (book) =>
+          book.title?.toLowerCase().includes(lowercasedQuery) ||
+          book.author?.toLowerCase().includes(lowercasedQuery)
       );
     }
 
-    if (selectedCategory !== "all") {
-      filtered = filtered.filter(book =>
-        book.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((book) => book.category === selectedCategory);
     }
 
     setFilteredBooks(filtered);
@@ -68,9 +196,6 @@ export default function BooksPage() {
     filterBooks();
   }, [books, searchQuery, selectedCategory, filterBooks]);
 
-  const handleSearch = (e) => setSearchQuery(e.target.value);
-  // const handleCategoryChange = (cat) => setSelectedCategory(cat);
-
   const handleLoadMore = () => {
     if (hasMore && !loading) {
       const nextPage = page + 1;
@@ -79,110 +204,143 @@ export default function BooksPage() {
     }
   };
 
+  const handleCardClick = async (bookSlug) => {
+    setIsModalLoading(true);
+    try {
+      const bookDetails = await fetchBookBySlug(bookSlug);
+      setSelectedBook(bookDetails);
+    } catch (error) {
+      console.error("Failed to fetch book details:", error);
+    } finally {
+      setIsModalLoading(false);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBook(null);
+  };
+
   return (
     <>
-      <SEO title={t("books")} description="Books library" keywords="Books, Publications" />
+      <SEO
+        title={t("books")}
+        description={t("booksPage.subtitle")}
+        keywords="Jaro Kilo, books, publications, Nepal"
+      />
+      <div className="max-w-7xl mx-auto p-4 space-y-8 text-text-default min-h-screen">
+        <motion.h1
+          className="text-4xl font-bold text-center mb-4 bg-primary-default text-text-on-primary rounded-xl p-2"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {t("booksPage.title")}
+        </motion.h1>
 
-      <div className="space-y-8 max-w-7xl mx-auto px-4 pb-2">
-        <section className="text-white bg-gradient-to-r from-primary-700 via-primary-500 to-orange-300 py-16 text-center rounded-lg">
-          <h1 className="text-5xl font-bold mb-4">{t("booksPage.title")}</h1>
-          <p className="text-xl">{t("booksPage.subtitle")}</p>
-        </section>
-
-        <div className="rounded-md place-self-center border-l-2 border-secondary-500">
-          <input
-            type="text"
-            placeholder={t("booksPage.placeholder")}
-            value={searchQuery}
-            onChange={handleSearch}
-            className="px-4 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-secondary-500 focus:border-transparent"
-          />
-          {/* Category buttons */}
-          {/* <div className="flex gap-2 flex-wrap">
-            {["all", "education", "culture", "technology", "research", "general"].map(cat => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 rounded font-medium ${
-                  selectedCategory === cat ? "bg-red-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
-          </div> */}
-        </div>
-
-        {/* Books Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBooks.map(book => (
-            <div
-              key={book.id}
-              onClick={() => setSelectedBook(book)}
-              className="cursor-pointer bg-white rounded shadow hover:shadow-lg transition-transform transform hover:scale-105 overflow-hidden"
-            >
-              <div className="aspect-[3/4] bg-gray-200">
-                {book.imageUrl ? (
-                  <img src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-primary-100 text-primary-300 text-6xl">📖</div>
-                )}
-              </div>
-              <div className="p-4">
-                <h3 className="font-bold text-lg line-clamp-2">{book.title}</h3>
-                <p className="text-primary-600 text-sm">{book.author}</p>
-                <p className="text-gray-600 text-sm line-clamp-3">{book.excerpt || "No description available"}</p>
-                <div className="flex justify-between text-xs text-gray-500 mt-2">
-                  <span>{book.formattedDate}</span>
-                  {book.pages && <span>{book.pages} pages</span>}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Load more */}
-        {hasMore && (
-          <div className="text-center mt-6">
-            <button
-              onClick={handleLoadMore}
-              className="px-6 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
-            >
-              {loading ? t("common.loading") : t("common.loadMore")}
-            </button>
+        {/* Filters */}
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 mb-4"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="relative flex-grow">
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+            <input
+              type="text"
+              placeholder={t("booksPage.placeholder")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="p-2 pl-10 rounded border border-border-default bg-surface-default text-text-default w-full focus:ring-2 focus:ring-primary-default"
+            />
           </div>
-        )}
-
-        {loading && books.length === 0 && <Loading size="large" text="Loading books..." />}
-      </div>
-
-      {/* Modal */}
-      {selectedBook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
-            <button
-              onClick={() => setSelectedBook(null)}
-              className="absolute top-4 right-4 text-gray-600 text-xl font-bold hover:text-gray-800"
+          <div className="flex-shrink-0">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="p-2 rounded border border-border-default bg-surface-default text-text-default w-full sm:w-auto focus:ring-2 focus:ring-primary-default"
             >
-              &times;
-            </button>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {selectedBook.imageUrl && (
-                <img src={selectedBook.imageUrl} alt={selectedBook.title} className="w-full h-full object-cover rounded" />
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {t(`categories.${cat}`, cat)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
+
+        {/* Content */}
+        {loading && books.length === 0 ? (
+          <Loading size="large" text={t("booksPage.loading")} />
+        ) : (
+          <>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {filteredBooks.length > 0 ? (
+                filteredBooks.map((book) => (
+                  <motion.div
+                    key={book.id}
+                    variants={itemVariants}
+                    onClick={() => handleCardClick(book.slug)}
+                  >
+                    <Card className="cursor-pointer overflow-hidden">
+                      <div className="aspect-[1/1.2] w-full overflow-hidden bg-surface-subtle">
+                        {book.imageUrl ? (
+                          <LazyLoadImage
+                            alt={book.title}
+                            src={book.imageUrl}
+                            effect="blur"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-primary-subtle text-primary-default">
+                            <FaBook className="text-6xl" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-4 flex flex-col flex-grow">
+                        <h2 className="text-xl font-semibold mb-1 text-primary-default">
+                          {book.title}
+                        </h2>
+                        <p className="text-sm text-text-muted mb-2">
+                          {book.author}
+                        </p>
+                        <div
+                          className="text-text-secondary line-clamp-3"
+                          dangerouslySetInnerHTML={{ __html: book.excerpt }}
+                        />
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))
+              ) : (
+                <p className="text-center col-span-full">
+                  {t("booksPage.noBooks")}
+                </p>
               )}
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold">{selectedBook.title}</h2>
-                <p className="text-primary-600 font-medium">{selectedBook.author}</p>
-                <div dangerouslySetInnerHTML={{ __html: selectedBook.content || selectedBook.excerpt }} />
-                {selectedBook.downloadUrl && (
-                  <a href={selectedBook.downloadUrl} target="_blank" className="bg-primary-600 text-gray-300 px-6 py-2 rounded hover:bg-primary-700">
-                    Download PDF
-                  </a>
-                )}
+            </motion.div>
+
+            {/* Load More */}
+            {hasMore && (
+              <div className="text-center mt-6">
+                <Button onClick={handleLoadMore} disabled={loading}>
+                  {loading ? t("common.loading") : t("common.loadMore")}
+                </Button>
               </div>
-            </div>
-          </div>
-        </div>
+            )}
+          </>
+        )}
+      </div>
+      {(selectedBook || isModalLoading) && (
+        <BookDetailModal
+          book={selectedBook}
+          onClose={handleCloseModal}
+          loading={isModalLoading}
+        />
       )}
     </>
   );

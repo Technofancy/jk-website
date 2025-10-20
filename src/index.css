@@ -1,3 +1,4 @@
+@import "./styles/theme.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +19,9 @@ html:focus-within {
   html:focus-within {
     scroll-behavior: auto;
   }
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -28,7 +31,7 @@ html:focus-within {
 
 /* Improve focus visibility for keyboard users */
 :focus-visible {
-  outline: 2px solid theme('colors.secondary.400');
+  outline: 2px solid theme("colors.secondary.400");
   outline-offset: 2px;
 }
 
@@ -37,4 +40,8 @@ html:focus-within {
   .container-page {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+}
+
+body.modal-open {
+  overflow: hidden;
 }

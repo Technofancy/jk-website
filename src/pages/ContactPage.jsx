@@ -1,16 +1,35 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import {
   submitContactForm,
   validateContactForm,
   getContactInfo,
 } from "../api/contact";
-import SEO from "../components/SEO";
 import JkMap from "../assets/Jk-map.png";
 
 import { FaFacebook, FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
+import SEO from "../components/ui/SEO";
+import { useTranslation } from "react-i18next";
+import Button from "../components/ui/Button";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function ContactPage() {
   const { t } = useTranslation();
@@ -29,24 +48,14 @@ export default function ContactPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error when user starts typing
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form
     const validation = validateContactForm(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -58,7 +67,6 @@ export default function ContactPage() {
 
     try {
       const result = await submitContactForm(formData);
-
       if (result.success) {
         setSubmitStatus({ type: "success", message: result.message });
         setFormData({ name: "", email: "", subject: "", message: "" });
@@ -74,7 +82,6 @@ export default function ContactPage() {
         type: "error",
         message: "An error occurred. Please try again.",
       });
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -88,31 +95,41 @@ export default function ContactPage() {
         keywords="Contact, Jaro Kilo Foundation, Nepal, सम्पर्क, जरो किलो प्रतिष्ठान"
       />
 
-      <div className="space-y-16">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 text-white py-16">
+      <div className="space-y-16 text-text-default pb-8">
+        <motion.section
+          className="bg-primary-default text-text-on-primary py-16"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="max-w-6xl mx-auto px-6 text-center">
-            <h1 className="text-5xl font-bold mb-4" data-aos="fade-up">
+            <motion.h1
+              className="text-5xl font-bold mb-4"
+              variants={itemVariants}
+            >
               {t("contactPage.title")}
-            </h1>
-            <p
+            </motion.h1>
+            <motion.p
               className="text-xl max-w-3xl mx-auto"
-              data-aos="fade-up"
-              data-aos-delay="200"
+              variants={itemVariants}
             >
               {t("contactPage.subtitle")}
-            </p>
+            </motion.p>
           </div>
-        </section>
+        </motion.section>
 
-        <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          className="max-w-6xl mx-auto px-6"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div
-              className="bg-white p-8 rounded-lg shadow-lg blur-sm"
-              data-aos="fade-right"
+            <motion.div
+              className="bg-surface-default p-8 rounded-lg shadow-lg"
+              variants={itemVariants}
             >
-              <h2 className="text-2xl font-bold mb-6 text-gray-800">
+              <h2 className="text-2xl font-bold mb-6 text-text-primary">
                 Send us a Message
               </h2>
 
@@ -120,8 +137,8 @@ export default function ContactPage() {
                 <div
                   className={`mb-6 p-4 rounded-lg ${
                     submitStatus.type === "success"
-                      ? "bg-green-100 border border-green-400 text-green-700"
-                      : "bg-red-100 border border-red-400 text-red-700"
+                      ? "bg-success-light border border-success-dark text-success-dark"
+                      : "bg-error-light border border-error-dark text-error-dark"
                   }`}
                 >
                   {submitStatus.message}
@@ -132,7 +149,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-text-secondary mb-2"
                   >
                     {t("contact.form.name")} *
                   </label>
@@ -142,20 +159,24 @@ export default function ContactPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
-                      errors.name ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-default focus:border-transparent ${
+                      errors.name
+                        ? "border-error-dark"
+                        : "border-border-default"
                     }`}
                     placeholder="Your full name"
                   />
                   {errors.name && (
-                    <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                    <p className="mt-1 text-sm text-error-dark">
+                      {errors.name}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-text-secondary mb-2"
                   >
                     {t("contact.form.email")} *
                   </label>
@@ -165,20 +186,24 @@ export default function ContactPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
-                      errors.email ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-default focus:border-transparent ${
+                      errors.email
+                        ? "border-error-dark"
+                        : "border-border-default"
                     }`}
                     placeholder="your.email@example.com"
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                    <p className="mt-1 text-sm text-error-dark">
+                      {errors.email}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-text-secondary mb-2"
                   >
                     {t("contact.form.subject")} *
                   </label>
@@ -188,13 +213,15 @@ export default function ContactPage() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
-                      errors.subject ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-default focus:border-transparent ${
+                      errors.subject
+                        ? "border-error-dark"
+                        : "border-border-default"
                     }`}
                     placeholder="What is this about?"
                   />
                   {errors.subject && (
-                    <p className="mt-1 text-sm text-red-600">
+                    <p className="mt-1 text-sm text-error-dark">
                       {errors.subject}
                     </p>
                   )}
@@ -203,7 +230,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-text-secondary mb-2"
                   >
                     {t("contact.form.message")} *
                   </label>
@@ -213,85 +240,80 @@ export default function ContactPage() {
                     rows="6"
                     value={formData.message}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
-                      errors.message ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-default focus:border-transparent ${
+                      errors.message
+                        ? "border-error-dark"
+                        : "border-border-default"
                     }`}
                     placeholder="Your message here..."
                   />
                   {errors.message && (
-                    <p className="mt-1 text-sm text-red-600">
+                    <p className="mt-1 text-sm text-error-dark">
                       {errors.message}
                     </p>
                   )}
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  // disabled={isSubmitting}
-                  disabled
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-red-600 hover:bg-red-700 text-white"
-                  }`}
+                  disabled={isSubmitting}
+                  className="w-full"
+                  variant="primary"
                 >
                   {isSubmitting
                     ? t("contact.form.sending")
                     : t("contact.form.send")}
-                </button>
+                </Button>
               </form>
-            </div>
+            </motion.div>
 
-            {/* Contact Information */}
-            <div className="space-y-8" data-aos="fade-left">
-              {/* Contact Details */}
-              <div className="bg-gradient-to-r from-red-700 via-red-500 to-orange-300 p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6 text-gray-100">
+            <motion.div className="space-y-8" variants={itemVariants}>
+              <div className="bg-primary-default p-8 rounded-lg shadow-lg text-text-on-primary">
+                <h2 className="text-2xl font-bold mb-6">
                   {t("contactPage.subtitle")}
                 </h2>
-
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="text-2xl text-white">
+                    <div className="text-2xl">
                       <FaLocationDot />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-100">
+                      <h3 className="font-semibold">
                         {t("contactPage.address")}
                       </h3>
-                      <p className="text-gray-300">
-                        {t("contactPage.addressDetails.street")}, {t("contactPage.addressDetails.city")}
+                      <p className="text-text-on-primary-muted">
+                        {t("contactPage.addressDetails.street")},{" "}
+                        {t("contactPage.addressDetails.city")}
                         <br />
-                        {t("contactPage.addressDetails.district")}, {t("contactPage.addressDetails.state")}
+                        {t("contactPage.addressDetails.district")},{" "}
+                        {t("contactPage.addressDetails.state")}
                         <br />
                         {t("contactPage.addressDetails.country")}
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-start space-x-4">
-                    <div className="text-2xl text-white">
+                    <div className="text-2xl">
                       <FaPhone />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-100">
+                      <h3 className="font-semibold">
                         {t("contactPage.phone")}
                       </h3>
-                      <p className="text-gray-300">{t("contactPage.phoneDetails")}</p>
+                      <p className="text-text-on-primary-muted">
+                        {t("contactPage.phoneDetails")}
+                      </p>
                     </div>
                   </div>
-
                   <div className="flex items-start space-x-4">
-                    <div className="text-2xl text-white">
+                    <div className="text-2xl">
                       <IoMdMail />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-100">
-                        {t("contactPage.email")}
-                      </h3>
+                      <h3 className="font-semibold">{t("contactPage.email")}</h3>
                       <a
                         href={`mailto:${contactInfo.email}`}
-                        className="text-red-600 hover:text-red-800 transition-colors"
+                        className="text-text-on-primary hover:text-text-on-primary-muted transition-colors"
                       >
                         {t("contactPage.emailDetails")}
                       </a>
@@ -300,96 +322,53 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Working Hours */}
-              {/* <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">Working Hours</h2>
-                
-                <div className="space-y-3">
-                  {Object.entries(contactInfo.workingHours).map(([day, hours]) => (
-                    <div key={day} className="flex justify-between items-center">
-                      <span className="font-medium text-gray-700 capitalize">{day}</span>
-                      <span className="text-gray-600">{hours}</span>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
-
-              {/* Social Media */}
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">
+              <div className="bg-surface-default p-8 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold mb-6 text-text-primary">
                   {t("footer.followUs")}
                 </h2>
-
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <a
                     href={contactInfo.socialMedia.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                    className="flex items-center space-x-3 p-3 bg-surface-sunken rounded-lg hover:bg-surface-hover transition-colors"
                   >
-                    <span className="text-2xl text-blue-700">
+                    <span className="text-2xl text-primary-default">
                       <FaFacebook />
                     </span>
-                    <span className="font-medium text-blue-700">Facebook</span>
+                    <span className="font-medium text-primary-default">
+                      Facebook
+                    </span>
                   </a>
-
-                  {/* <a
-                    href={contactInfo.socialMedia.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-sky-50 rounded-lg hover:bg-sky-100 transition-colors "
-                  >
-                    <span className="text-2xl">🐦</span>
-                    <span className="font-medium text-sky-700">Twitter</span>
-                  </a>
-
-                  <a
-                    href={contactInfo.socialMedia.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
-                  >
-                    <span className="text-2xl">📺</span>
-                    <span className="font-medium text-primary-700">YouTube</span>
-                  </a>
-
-                  <a
-                    href={contactInfo.socialMedia.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
-                  >
-                    <span className="text-2xl">💼</span>
-                    <span className="font-medium text-blue-700">LinkedIn</span>
-                  </a> */}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Map Section */}
-          <div
-            className="mt-16 bg-white p-8 rounded-lg shadow-lg"
-            data-aos="fade-up"
-            style={{ position: "relative" }}
+          <motion.div
+            className="mt-16 bg-surface-default p-8 rounded-lg shadow-lg"
+            variants={itemVariants}
           >
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">{t("common.findus")}</h2>
-            <div className="bg-gray-200 rounded-lg flex flex-col items-center justify-start overflow-hidden">
-              <div className="text-center text-gray-600 w-full">
+            <h2 className="text-2xl font-bold mb-6 text-text-primary">
+              {t("common.findus")}
+            </h2>
+            <div className="bg-surface-sunken rounded-lg flex flex-col items-center justify-start overflow-hidden">
+              <div className="text-center text-text-secondary w-full p-4">
                 <div className="text-4xl mb-2">🗺️</div>
-                <p className="text-sm mb-4">{t("contactPage.addressDetails.district")}</p>
-
+                <p className="text-sm mb-4">
+                  {t("contactPage.addressDetails.district")}
+                </p>
                 <a href={mapUrl} target="_blank" rel="noreferrer">
                   <img
                     src={JkMap}
                     alt="Map to Jaro Kilo Pratishthan, near Nachghar"
-                    className="w-full h-96 object-contain cursor-pointer"
+                    className="w-full h-96 object-contain cursor-pointer rounded-md"
                   />
                 </a>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </>
   );

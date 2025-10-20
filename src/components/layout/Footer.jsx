@@ -19,16 +19,16 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-primary-800 text-text-inverted">
+    <footer className="bg-surface-footer text-text-default border-t-4 border-secondary-500">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
           <div>
             <h3 className="text-xl font-bold mb-4">{t("hero.title")}</h3>
-            <p className="text-muted mb-4 leading-relaxed">
+            <p className="text-text-muted mb-4 leading-relaxed">
               {t("footer.description")}
             </p>
-            <div className="text-sm text-muted-100">
+            <div className="text-sm text-text-muted">
               <p className="italic">"{t("hero.subtitle")}"</p>
             </div>
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
                 <li key={index}>
                   <Link
                     to={link.to}
-                    className="text-muted hover:text-secondary-300 motion-safe:transition-colors"
+                    className="text-text-muted hover:text-primary-500 motion-safe:transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -60,7 +60,7 @@ export default function Footer() {
                 </span>
                 <a
                   href="mailto:info@jarokilofoundation.org"
-                  className="text-muted hover:text-secondary-300 motion-safe:transition-colors"
+                  className="text-text-muted hover:text-primary-500 motion-safe:transition-colors"
                 >
                   info@jarokilofoundation.org
                 </a>
@@ -69,13 +69,13 @@ export default function Footer() {
                 <span className="text-2xl">
                   <FaPhone />
                 </span>
-                <span className="text-muted">+977-985-1150300</span>
+                <span className="text-text-muted">+977-985-1150300</span>
               </div>
               <div className="flex items-center space-x-3">
                 <span className="text-2xl">
                   <FaLocationDot />
                 </span>
-                <span className="text-muted">{t("footer.address")}</span>
+                <span className="text-text-muted">{t("footer.address")}</span>
               </div>
             </div>
 
@@ -83,7 +83,7 @@ export default function Footer() {
             <div className="flex space-x-4 mt-4">
               <a
                 href="https://www.facebook.com/JAROKILOPRATISHTHANEPAL"
-                className="text-2xl text-secondary-300 hover:text-secondary-500 motion-safe:transition-colors flex space-x-4 items-center"
+                className="text-2xl text-text-muted hover:text-primary-500 motion-safe:transition-colors flex space-x-4 items-center"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Facebook"
@@ -97,9 +97,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-primary-600 mt-8 pt-8 text-center">
-          <p className="text-muted">{t("footer.copyright")}</p>
-          <div className="text-sm text-secondary-300 mt-2 ">
+        <div className="border-t border-surface-200 mt-8 pt-8 text-center">
+          <p className="text-text-muted">{t("footer.copyright")}</p>
+          <div className="text-sm text-primary-500 mt-2 ">
             <a
               href="https://bhuwankhatri.com.np"
               target="_blank"

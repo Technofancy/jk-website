@@ -1,0 +1,50 @@
+:root {
+  /* Primary: Energetic Yellow/Gold */
+  --color-primary-100: #fef3c7;
+  --color-primary-500: #fbbf24;
+  --color-primary-600: #f59e0b;
+
+  /* Secondary: Supportive Red */
+  --color-secondary-100: #fee2e2;
+  --color-secondary-500: #d92323;
+  --color-secondary-600: #b91c1c;
+
+  /* Surface colors for light theme */
+  --color-surface-default: #ffffff;
+  --color-surface-100: #f9fafb;
+  --color-surface-200: #f3f4f6;
+  --color-surface-footer: #e5e7eb; /* Greyish footer background */
+  --color-surface-800: #1f2937;
+  --color-surface-900: #111827;
+
+  /* Text colors for light theme */
+  --color-text-default: #1f2937;
+  --color-text-inverted: #ffffff;
+  --color-text-muted: #6b7280;
+}
+
+.dark {
+  /* Dark Theme Colors */
+  /* Primary: Energetic Yellow/Gold */
+  --color-primary-100: #f59e0b;
+  --color-primary-500: #fbbf24;
+  --color-primary-600: #fef3c7;
+
+  /* Secondary: Supportive Red */
+  --color-secondary-100: #b91c1c;
+  --color-secondary-500: #d92323;
+  --color-secondary-600: #fee2e2;
+
+  /* Surface colors for dark theme */
+  --color-surface-default: #111827;
+  --color-surface-100: #1f2937;
+  --color-surface-200: #374151;
+  --color-surface-footer: #1f2937; /* Darker footer */
+  --color-surface-800: #d1d5db;
+  --color-surface-900: #e5e7eb;
+
+  /* Text colors for dark theme */
+  --color-text-default: #ffffff;
+  --color-text-inverted: #1f2937;
+  --color-text-muted: #9ca3af;
+}

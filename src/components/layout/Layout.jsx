@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import SEO from "./SEO";
+import SEO from "../ui/SEO";
 
 /**
  * Layout.jsx
@@ -28,7 +28,7 @@ export default function Layout({
   className = "",
 }) {
   return (
-    <div className={`min-h-screen flex flex-col bg-surface-50 text-text ${className}`}>
+    <div className={`min-h-screen flex flex-col bg-surface-default text-text-default ${className}`}>
       {/* Default SEO (pages can override by passing seo prop or using their own SEO component) */}
       <SEO {...seo} />
 
