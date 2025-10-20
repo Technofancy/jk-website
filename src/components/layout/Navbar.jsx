@@ -31,7 +31,7 @@ export default function Navbar({ className = "" }) {
   };
 
   return (
-    <nav className={`bg-background backdrop-blur-sm text-text-default px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 border-b-4 border-secondary-500 ${className}`}>
+    <nav className={`bg-background  text-text-default px-4 h-16 flex items-center justify-between w-screen shadow-lg transition-colors duration-300 border-b-4 border-secondary-500 ${className}`}>
       <Link to="/" className="flex items-center gap-3 text-2xl font-bold cursor-pointer z-50">
         <img src={logo} alt="Jaro Kilo Foundation logo" className="h-10 w-auto rounded sm:h-12" />
         <div className="flex flex-col text-center">
@@ -42,7 +42,7 @@ export default function Navbar({ className = "" }) {
       </Link>
 
       {/* Desktop menu */}
-      <div className="hidden md:text-md lg:text-lg md:flex items-center space-x-0">
+      <div className="hidden md:text-md lg:text-lg md:flex items-center space-x-0 backdrop-blur-sm">
         {links.map((l) => (
           <Link
             key={l.to}
@@ -59,7 +59,7 @@ export default function Navbar({ className = "" }) {
       </div>
 
       {/* Mobile menu button and controls */}
-      <div className="md:hidden flex items-center gap-2">
+      <div className="md:hidden flex items-center gap-2 backdrop-blur-sm">
         <LanguageSwitcher />
         {/* <ThemeToggle className="hidden disable" /> */}
         <Button
