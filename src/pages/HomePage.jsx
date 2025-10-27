@@ -91,38 +91,7 @@ export default function HomePage() {
       <div className="min-w-full">
         <Hero />
 
-        <motion.section
-          className="my-12"
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <div className="text-center mb-6 border-y-2 border-primary-default rounded-md py-2">
-            <h2 className="text-3xl sm:text-4xl font-bold text-text-default">
-              {t("homePage.facebookIframe.title")}
-            </h2>
-            <p className="text-text-muted mt-2">
-              {t("homePage.facebookIframe.description")}
-            </p>
-          </div>
-          <div className="flex justify-center rounded-md border-x-2 border-primary-default">
-            <iframe
-              title="Facebook Page"
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-              width="500"
-              height="600"
-              className="border-none overflow-hidden"
-              scrolling="no"
-              frameBorder="0"
-              allowFullScreen={true}
-              loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            ></iframe>
-          </div>
-        </motion.section>
-
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-top my-12">
           <motion.div
             variants={itemVariants}
             initial="hidden"
@@ -143,10 +112,10 @@ export default function HomePage() {
               </motion.div>
               <motion.div variants={itemVariants}>
                 <h3 className="text-xl font-semibold text-primary-default">
-                  {t("homePage.aboutSection.values.title")}
+                  {t("aboutPage.introduction.title")}
                 </h3>
-                <p className="text-text-muted">
-                  {t("homePage.aboutSection.values.text")}
+                <p className="text-text-muted line-clamp-5">
+                  {t("aboutPage.introduction.text")}
                 </p>
               </motion.div>
             </div>
@@ -157,18 +126,33 @@ export default function HomePage() {
             </Link>
           </motion.div>
           <motion.div
-            className="bg-surface-subtle p-6 rounded-lg shadow-lg border-l-4 border-secondary-default"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-primary-default mb-3">
-              {t("hero.subtitle")}
-            </h3>
-            <p className="text-text-muted">
-              {t("homePage.aboutSection.mission.text")}
-            </p>
+            <div className="text-center mb-6 border-y-2 border-primary-default rounded-md py-2">
+              <h2 className="text-3xl sm:text-4xl font-bold text-text-default">
+                {t("homePage.facebookIframe.title")}
+              </h2>
+              <p className="text-text-muted mt-2">
+                {t("homePage.facebookIframe.description")}
+              </p>
+            </div>
+            <div className="flex justify-center rounded-md border-x-2 border-primary-default">
+              <iframe
+                title="Facebook Page"
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FJAROKILOPRATISHTHANEPAL&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                width="500"
+                height="600"
+                className="border-none overflow-hidden w-full"
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen={true}
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              ></iframe>
+            </div>
           </motion.div>
         </section>
 
