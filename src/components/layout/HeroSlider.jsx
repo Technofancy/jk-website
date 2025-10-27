@@ -48,61 +48,65 @@ export default function HeroSlider() {
 
   return (
     <motion.section
-      className="w-screen min-h-[90vh] -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden flex flex-col md:block md:relative"
+      className="relative w-screen min-h-[90vh] -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden flex flex-col lg:block"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       {/* Slider */}
-      <div className="h-[50vh] md:absolute md:inset-0 md:h-full">
+      <div className="h-[50vh] lg:absolute lg:inset-0 lg:h-full">
         <Slider {...sliderSettings} className="w-full h-full">
           {images.map((image, index) => (
-            <div key={index} className="h-[50vh] md:h-full">
+            <div key={index} className="h-full">
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-content object-top"
               />
             </div>
           ))}
         </Slider>
       </div>
 
-      {/* Content */}
-      <div className="flex-grow flex flex-col items-center justify-center p-4 md:relative md:z-10 md:h-full md:text-white">
+      {/* Content Wrapper */}
+      <div className="flex-grow flex flex-col items-center justify-center p-4 lg:absolute lg:inset-0 z-10 lg:text-white lg:bg-black lg:bg-opacity-40">
+        {/* Content Block */}
         <motion.div
-          className="text-center space-y-6 md:bg-black md:bg-opacity-50 md:p-8 rounded-xl"
+          className="w-full max-w-5xl mx-auto h-full flex flex-col justify-center items-center text-center lg:justify-between"
           variants={itemVariants}
         >
-          <motion.h1
-            className="text-4xl md:text-6xl mt-2"
-            variants={itemVariants}
-          >
-            {i18n.language === "np" ? (
-              <span>
-                स्वागत गर्दछौँ{" "}
-                <span className="text-primary-default font-bold text-3xl md:text-5xl">
-                  {t("hero.title")}
+          {/* Top Text Block */}
+          <div className="lg:mt-20">
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl mt-2"
+              variants={itemVariants}
+            >
+              {i18n.language === "np" ? (
+                <span>
+                  स्वागत गर्दछौँ{" "}
+                  <span className="text-primary-default font-bold text-3xl md:text-5xl lg:text-6xl">
+                    {t("hero.title")}
+                  </span>
                 </span>
-              </span>
-            ) : (
-              <span>
-                Welcome to{" "}
-                <span className="text-primary-default font-bold text-3xl md:text-5xl">
-                  {t("hero.title")}
+              ) : (
+                <span>
+                  Welcome to{" "}
+                  <span className="text-primary-default font-bold text-3xl md:text-5xl lg:text-6xl">
+                    {t("hero.title")}
+                  </span>
                 </span>
-              </span>
-            )}
-          </motion.h1>
+              )}
+            </motion.h1>
+            <motion.div variants={itemVariants}>
+              <p className="text-sm md:text-base lg:text-lg italic opacity-90 my-6">
+                "{t("hero.subtitle")}"
+              </p>
+            </motion.div>
+          </div>
 
-          <motion.div className="text-center" variants={itemVariants}>
-            <p className="text-sm md:text-base italic opacity-90 mb-6">
-              "{t("hero.subtitle")}"
-            </p>
-          </motion.div>
-
+          {/* Bottom Button Block */}
           <motion.div
-            className="flex justify-center gap-4"
+            className="flex justify-center gap-4 lg:mb-20"
             variants={itemVariants}
           >
             <Link to="/programs">
