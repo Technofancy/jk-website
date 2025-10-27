@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Hero from "../components/layout/Hero";
+import HeroSlider from "../components/layout/HeroSlider";
 import SEO from "../components/ui/SEO";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -89,7 +90,8 @@ export default function HomePage() {
       />
 
       <div className="min-w-full">
-        <Hero />
+        {/* <Hero /> */}
+        <HeroSlider />
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-top my-12">
           <motion.div
