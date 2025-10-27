@@ -9,6 +9,9 @@ const Button = ({ children, onClick, type = 'button', variant = 'primary', size 
     secondary: 'bg-secondary-500 text-black hover:bg-secondary-600 focus:ring-secondary-500',
     ghost: 'hover:text-text-default focus:ring-primary-500',
     link: 'text-primary-500 underline-offset-4 hover:underline focus:ring-primary-500',
+    // Later updated, not used yet
+    inverted: 'bg-white text-primary-500 hover:bg-gray-100 focus:ring-gray-100',
+    'inverted-secondary': 'border-2 border-white text-white hover:bg-white hover:text-primary-500',
   };
 
   const sizeStyles = {
@@ -44,7 +47,7 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'link']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'link', 'inverted', 'inverted-secondary']),
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'icon']),
   disabled: PropTypes.bool,
   className: PropTypes.string,

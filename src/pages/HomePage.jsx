@@ -319,10 +319,10 @@ export default function HomePage() {
             variants={itemVariants}
           >
             <Link to="/contact">
-              <Button variant="inverted">{t("common.contact")}</Button>
+              <Button variant="primary">{t("common.contact")}</Button>
             </Link>
             <Link to="/programs">
-              <Button variant="inverted-secondary">
+              <Button variant="secondary">
                 {t("common.viewPrograms")}
               </Button>
             </Link>
