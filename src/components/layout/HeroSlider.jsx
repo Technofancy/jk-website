@@ -5,10 +5,15 @@ import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import fourFoundationPillarImg from "../../assets/fourFoundationPillar.jpg";
-import punarjagaranBookImg from "../../assets/punarjagaran_book.jpg";
-import jkPratisthanLogoImg from "../../assets/JK_pratisthanLogo.png";
 import Button from "../ui/Button";
+// Images 
+import first from "../../assets/coverImgs/1.jpg";
+import second from "../../assets/coverImgs/2DharmikSammelan-1024x410.jpg";
+import third from "../../assets/coverImgs/3.jpg";
+import fourth from "../../assets/coverImgs/4guraParvaBanner.jpg";
+import five from "../../assets/coverImgs/5bookShowOfDharmikSammelan.jpg";
+import six from "../../assets/coverImgs/6sankalpaDiwasBnr.jpg";
+import seven from "../../assets/coverImgs/7mithilaSanskritiBanner.jpg";
 
 export default function HeroSlider() {
   const { t, i18n } = useTranslation();
@@ -26,9 +31,13 @@ export default function HeroSlider() {
   };
 
   const images = [
-    fourFoundationPillarImg,
-    punarjagaranBookImg,
-    jkPratisthanLogoImg,
+    first,
+    second,
+    third,
+    fourth,
+    five,
+    six,
+    seven
   ];
 
   const containerVariants = {
@@ -61,7 +70,7 @@ export default function HeroSlider() {
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-content object-top"
+                className="w-full h-full object-content"
               />
             </div>
           ))}
@@ -84,14 +93,14 @@ export default function HeroSlider() {
               {i18n.language === "np" ? (
                 <span>
                   स्वागत गर्दछौँ{" "}
-                  <span className="text-primary-default font-bold text-3xl md:text-5xl lg:text-6xl">
+                  <span className="text-secondary-default font-bold text-3xl md:text-5xl lg:text-6xl">
                     {t("hero.title")}
                   </span>
                 </span>
               ) : (
                 <span>
                   Welcome to{" "}
-                  <span className="text-primary-default font-bold text-3xl md:text-5xl lg:text-6xl">
+                  <span className="text-secondary-default font-bold text-3xl md:text-5xl lg:text-6xl">
                     {t("hero.title")}
                   </span>
                 </span>
