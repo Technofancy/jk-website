@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Hero from "../components/layout/Hero";
 import HeroSlider from "../components/layout/HeroSlider";
 import SEO from "../components/ui/SEO";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { fetchPrograms } from "../api/programs";
@@ -20,67 +16,97 @@ function getRandomSubset(array, count) {
 
 export default function HomePage() {
   const { t } = useTranslation();
-
   const [programs, setPrograms] = useState([]);
   const [books, setBooks] = useState([]);
-  const [loadingPrograms, setLoadingPrograms] = useState(true);
-  const [loadingBooks, setLoadingBooks] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [errorPrograms, setErrorPrograms] = useState(null);
   const [errorBooks, setErrorBooks] = useState(null);
 
   useEffect(() => {
-    async function loadPrograms() {
+    async function loadData() {
       try {
-        setLoadingPrograms(true);
-        const { items } = await fetchPrograms(1, 12);
-        setPrograms(Array.isArray(items) ? getRandomSubset(items, 6) : []);
+        const [{ items: p }, { items: b }] = await Promise.all([
+          fetchPrograms(1, 12, true),
+          fetchBooks(1, 12, true),
+        ]);
+
+        setPrograms(Array.isArray(p) ? getRandomSubset(p, 6) : []);
+        setBooks(Array.isArray(b) ? getRandomSubset(b, 6) : []);
       } catch (err) {
+        console.error(err);
         setErrorPrograms(t("common.error"));
-        console.error(err);
-      } finally {
-        setLoadingPrograms(false);
-      }
-    }
-    loadPrograms();
-  }, [t]);
-
-  useEffect(() => {
-    async function loadBooks() {
-      try {
-        setLoadingBooks(true);
-        const { items } = await fetchBooks(1, 12);
-        setBooks(Array.isArray(items) ? getRandomSubset(items, 6) : []);
-      } catch (err) {
         setErrorBooks(t("common.error"));
-        console.error(err);
       } finally {
-        setLoadingBooks(false);
+        setLoading(false);
       }
     }
-    loadBooks();
-  }, [t]);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
-    ],
-  };
+    loadData();
+  }, [t]);
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
+
+  const renderScrollCards = (items, type) => (
+    <motion.div
+      className="flex gap-4 overflow-x-auto pb-4 px-2 sm:px-4 scrollbar-hide snap-x snap-mandatory"
+      whileTap={{ cursor: "grabbing" }}
+      tabIndex="0"
+    >
+      {items.map((item) => (
+        <motion.div
+          key={item.id}
+          variants={itemVariants}
+          className="min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] snap-center flex-shrink-0"
+        >
+          <Link to={`/${type}/${item.slug}`}>
+            <Card className="h-full text-left hover:shadow-lg transition-shadow">
+              {type === "programs" && item.acf?.picture?.url && (
+                <img
+                  src={item.acf.picture.url}
+                  alt={item.acf.program_heading}
+                  className="w-full h-48 object-cover rounded-md mb-3"
+                />
+              )}
+              {type === "books" && item.imageUrl && (
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="w-full h-48 object-cover rounded-md mb-3"
+                />
+              )}
+              <h3 className="text-xl font-bold text-text-default mb-2 line-clamp-2">
+                {type === "programs"
+                  ? item.acf?.program_heading
+                  : item.title}
+              </h3>
+              <p className="text-primary-default font-medium text-sm mb-2">
+                {type === "programs"
+                  ? convertToNepaliDate(item.acf?.start_date)
+                  : item.author}
+              </p>
+              <p className="text-text-muted line-clamp-3">
+                {type === "programs"
+                  ? item.acf?.text_contents
+                  : item.excerpt}
+              </p>
+            </Card>
+          </Link>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
 
   return (
     <>
@@ -91,12 +117,12 @@ export default function HomePage() {
       />
 
       <div className="min-w-full">
-        {/* <Hero /> */}
         <HeroSlider />
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-top my-12">
+        {/* About Section */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start my-12">
           <motion.div
-            variants={itemVariants}
+            variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -105,22 +131,22 @@ export default function HomePage() {
               {t("homePage.aboutSection.title")}
             </h2>
             <div className="space-y-6">
-              <motion.div variants={itemVariants}>
+              <div>
                 <h3 className="text-xl font-semibold text-primary-default">
                   {t("homePage.aboutSection.vision.title")}
                 </h3>
                 <p className="text-text-muted">
                   {t("homePage.aboutSection.vision.text")}
                 </p>
-              </motion.div>
-              <motion.div variants={itemVariants}>
+              </div>
+              <div>
                 <h3 className="text-xl font-semibold text-primary-default">
                   {t("aboutPage.introduction.title")}
                 </h3>
                 <p className="text-text-muted line-clamp-5">
                   {t("aboutPage.introduction.text")}
                 </p>
-              </motion.div>
+              </div>
             </div>
             <Link to="/about">
               <Button variant="primary" className="mt-6">
@@ -128,8 +154,9 @@ export default function HomePage() {
               </Button>
             </Link>
           </motion.div>
+
           <motion.div
-            variants={itemVariants}
+            variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -159,145 +186,47 @@ export default function HomePage() {
           </motion.div>
         </section>
 
+        {/* Programs Section */}
         <section className="text-center mt-16">
           <div className="border-y-2 border-primary-default rounded-md py-2 mt-2">
-            <motion.h2
-              className="text-3xl sm:text-4xl font-bold text-text-default mb-2"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-default mb-2">
               {t("homePage.programSlider.title")}
-            </motion.h2>
-            <motion.p
-              className="text-text-muted mb-8"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, delay: 0.1 }}
-            >
+            </h2>
+            <p className="text-text-muted mb-8">
               {t("homePage.programSlider.subtitle")}
-            </motion.p>
+            </p>
           </div>
 
-          {loadingPrograms && (
+          {loading && (
             <div className="py-10 text-text-muted">{t("common.loading")}</div>
           )}
-          {errorPrograms && !loadingPrograms && (
+          {errorPrograms && !loading && (
             <div className="py-10 text-error-default">{errorPrograms}</div>
           )}
-
-          {!loadingPrograms && !errorPrograms && (
-            programs.length === 0 ? (
-              <div className="py-10 text-text-muted">
-                {t("homePage.programSlider.noPrograms")}
-              </div>
-            ) : (
-              <Slider {...sliderSettings}>
-                {programs.map((program) => (
-                  <Link to={`/programs/${program.slug}`} key={program.id}>
-                    <motion.div
-                      variants={itemVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    >
-                      <Card className="m-4 text-left">
-                        {program.acf?.picture?.url && (
-                          <img
-                            src={program.acf.picture.url}
-                            alt={program.acf.program_heading}
-                            className="w-full h-48 object-cover rounded-md mb-3"
-                          />
-                        )}
-                        <h3 className="text-xl font-bold text-text-default mb-2 line-clamp-2">
-                          {program.acf?.program_heading}
-                        </h3>
-                        <p className="text-primary-default font-medium text-sm mb-2">
-                          {convertToNepaliDate(program.acf?.start_date)}
-                        </p>
-                        <p className="text-text-muted line-clamp-3">
-                          {program.acf?.text_contents}
-                        </p>
-                      </Card>
-                    </motion.div>
-                  </Link>
-                ))}
-              </Slider>
-            )
-          )}
+          {!loading && programs.length > 0 && renderScrollCards(programs, "programs")}
         </section>
 
-
+        {/* Books Section */}
         <section className="text-center mt-16">
           <div className="border-y-2 border-primary-default rounded-md py-2 mt-2">
-            <motion.h2
-              className="text-3xl sm:text-4xl font-bold text-text-default mb-2"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-default mb-2">
               {t("homePage.bookSlider.title")}
-            </motion.h2>
-            <motion.p
-              className="text-text-muted mb-8"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, delay: 0.1 }}
-            >
+            </h2>
+            <p className="text-text-muted mb-8">
               {t("homePage.bookSlider.subtitle")}
-            </motion.p>
+            </p>
           </div>
 
-          {loadingBooks && (
+          {loading && (
             <div className="py-10 text-text-muted">{t("common.loading")}</div>
           )}
-          {errorBooks && !loadingBooks && (
+          {errorBooks && !loading && (
             <div className="py-10 text-error-default">{errorBooks}</div>
           )}
-
-          {!loadingBooks && !errorBooks && (
-            books.length === 0 ? (
-              <div className="py-10 text-text-muted">
-                {t("homePage.bookSlider.noBooks")}
-              </div>
-            ) : (
-              <Slider {...sliderSettings}>
-                {books.map((book) => (
-                  <Link to={`/books/${book.slug}`} key={book.id}>
-                    <motion.div
-                      variants={itemVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    >
-                      <Card className="m-4 text-left">
-                        {book.imageUrl && (
-                          <img
-                            src={book.imageUrl}
-                            alt={book.title}
-                            className="w-full h-48 object-cover rounded-md mb-3"
-                          />
-                        )}
-                        <h3 className="text-xl font-bold text-text-default mb-2 line-clamp-2">
-                          {book.title}
-                        </h3>
-                        <p className="text-primary-default font-medium text-sm mb-2">
-                          {book.author}
-                        </p>
-                        <p className="text-text-muted line-clamp-3">{book.excerpt}</p>
-                      </Card>
-                    </motion.div>
-                  </Link>
-                ))}
-              </Slider>
-            )
-          )}
+          {!loading && books.length > 0 && renderScrollCards(books, "books")}
         </section>
 
+        {/* Join Section */}
         <motion.section
           className="bg-primary-default text-text-on-primary p-8 mb-2 sm:p-12 rounded-lg text-center shadow-lg"
           variants={sectionVariants}
@@ -305,31 +234,18 @@ export default function HomePage() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.h2
-            className="text-2xl sm:text-3xl font-bold mb-4"
-            variants={itemVariants}
-          >
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             {t("common.joinUs")}
-          </motion.h2>
-          <motion.p
-            className="mb-6 max-w-xl mx-auto"
-            variants={itemVariants}
-          >
-            {t("common.joinText")}
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row justify-center gap-4"
-            variants={itemVariants}
-          >
+          </h2>
+          <p className="mb-6 max-w-xl mx-auto">{t("common.joinText")}</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/contact">
               <Button variant="primary">{t("common.contact")}</Button>
             </Link>
             <Link to="/programs">
-              <Button variant="secondary">
-                {t("common.viewPrograms")}
-              </Button>
+              <Button variant="secondary">{t("common.viewPrograms")}</Button>
             </Link>
-          </motion.div>
+          </div>
         </motion.section>
       </div>
     </>

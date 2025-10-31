@@ -22,8 +22,6 @@
     "react-icons": "^5.5.0",
     "react-lazy-load-image-component": "^1.6.0",
     "react-router-dom": "^7.9.1",
-    "react-slick": "^0.31.0",
-    "slick-carousel": "^1.8.1",
     "swiper": "^12.0.2",
     "tailwind-merge": "^3.3.1"
   },
