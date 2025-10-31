@@ -29,38 +29,70 @@ export async function apiRequest(endpoint, params = {}) {
   );
 
   const cacheKey = `api-cache:${url.toString()}`;
+  const requestHeaders = new Headers();
+  let cachedResponse = null;
 
   // Try to get data from session storage
   try {
-    const cachedData = sessionStorage.getItem(cacheKey);
-    if (cachedData) {
-      const { data, headers } = JSON.parse(cachedData);
-      // Return cached data immediately
-      return { data, headers: new Headers(headers), error: null };
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      cachedResponse = JSON.parse(cached);
+      // Use headers from the cached response for revalidation
+      const lastModified = cachedResponse.headers["last-modified"];
+      const etag = cachedResponse.headers["etag"];
+
+      if (lastModified) {
+        requestHeaders.append("If-Modified-Since", lastModified);
+      }
+      if (etag) {
+        requestHeaders.append("If-None-Match", etag);
+      }
     }
   } catch (e) {
     console.warn("Could not read from session cache", e);
   }
 
   try {
-    const response = await fetch(url.toString());
+    const response = await fetch(url.toString(), { headers: requestHeaders });
+
+    // If server says content is not modified, use the cached version
+    if (response.status === 304 && cachedResponse) {
+      return {
+        data: cachedResponse.data,
+        headers: new Headers(cachedResponse.headers),
+        error: null,
+      };
+    }
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    const headers = Object.fromEntries(response.headers.entries());
+    const responseHeaders = Object.fromEntries(response.headers.entries());
 
-    // Save data to session storage
+    // Save new data and headers to session storage
     try {
-      sessionStorage.setItem(cacheKey, JSON.stringify({ data, headers }));
+      const cacheValue = JSON.stringify({ data, headers: responseHeaders });
+      sessionStorage.setItem(cacheKey, cacheValue);
     } catch (e) {
       console.warn("Could not write to session cache", e);
     }
 
     return { data, headers: response.headers, error: null };
   } catch (error) {
+    // If the fetch fails (e.g., user is offline) and we have cached data, serve it
+    if (cachedResponse) {
+      console.warn(
+        `API request failed for ${endpoint}. Serving stale data from cache.`,
+        error
+      );
+      return {
+        data: cachedResponse.data,
+        headers: new Headers(cachedResponse.headers),
+        error: null,
+      };
+    }
     console.error(`API request failed for ${endpoint}:`, error);
     return { data: null, headers: null, error: error.message };
   }

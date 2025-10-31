@@ -197,6 +197,7 @@
     "subtitle": "Explore our collection of books and research publications",
     "noBooks": "No books available at the moment. Please check back later.",
     "download": "Download",
+    "notAvailable": "Not Available",
     "bookModel": {
       "title": "Title",
       "author": "Author",

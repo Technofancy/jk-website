@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ children, onClick, type = 'button', variant = 'primary', size = 'md', disabled = false, className = '' }) => {
+const Button = ({
+  children,
+  onClick,
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  className = '',
+  ...props
+}) => {
   const baseStyles = 'inline-flex items-center justify-center rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300';
 
   const variantStyles = {
@@ -31,12 +41,25 @@ const Button = ({ children, onClick, type = 'button', variant = 'primary', size 
     className,
   ].join(' ');
 
+  if (href) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
       className={classes}
+      {...props}
     >
       {children}
     </button>
@@ -46,6 +69,7 @@ const Button = ({ children, onClick, type = 'button', variant = 'primary', size 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
+  href: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'link', 'inverted', 'inverted-secondary']),
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'icon']),

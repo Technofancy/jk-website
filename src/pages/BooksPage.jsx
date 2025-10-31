@@ -90,17 +90,22 @@ function BookDetailModal({ book, onClose, loading }) {
                       <strong>{t("booksPage.bookModel.Isbn")}:</strong>{" "}
                       {book.isbn}
                     </p>
-                    {book.downloadLink && (
-                      <Button
-                        as="a"
-                        href={book.downloadLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaDownload className="mr-2" />
-                        {t("booksPage.download")}
-                      </Button>
-                    )}
+                    <Button
+                      as="a"
+                      href={book.downloadLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      disabled={!book.downloadLink}
+                      onClick={(e) => {
+                        if (!book.downloadLink) e.preventDefault();
+                      }}
+                    >
+                      <FaDownload className="mr-2" />
+                      {book.downloadLink
+                        ? t("booksPage.download")
+                        : t("booksPage.notAvailable")}
+                    </Button>
                   </div>
                 </div>
                 <div
@@ -307,16 +312,40 @@ export default function BooksPage() {
                         )}
                       </div>
                       <div className="p-4 flex flex-col flex-grow">
-                        <h2 className="text-xl font-semibold mb-1 text-primary-default">
-                          {book.title}
-                        </h2>
-                        <p className="text-sm text-text-muted mb-2">
-                          {book.author}
-                        </p>
-                        <div
-                          className="text-text-secondary line-clamp-3"
-                          dangerouslySetInnerHTML={{ __html: book.excerpt }}
-                        />
+                        <div className="flex-grow">
+                          <h2 className="text-xl font-semibold mb-1 text-primary-default">
+                            {book.title}
+                          </h2>
+                          <p className="text-sm text-text-muted mb-2">
+                            {book.author}
+                          </p>
+                          <div
+                            className="text-text-secondary line-clamp-3"
+                            dangerouslySetInnerHTML={{ __html: book.excerpt }}
+                          />
+                        </div>
+                        <div className="mt-4">
+                          <Button
+                            as="a"
+                            href={book.downloadLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download
+                            disabled={!book.downloadLink}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!book.downloadLink) {
+                                e.preventDefault();
+                              }
+                            }}
+                            className="w-full flex items-center justify-center"
+                          >
+                            <FaDownload className="mr-2" />
+                            {book.downloadLink
+                              ? t("booksPage.download")
+                              : t("booksPage.notAvailable")}
+                          </Button>
+                        </div>
                       </div>
                     </Card>
                   </motion.div>

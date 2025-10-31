@@ -12,6 +12,7 @@ import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { fetchPrograms } from "../api/programs";
 import { fetchBooks } from "../api/books";
+import { convertToNepaliDate } from "../lib/dateConverter";
 
 function getRandomSubset(array, count) {
   return [...array].sort(() => 0.5 - Math.random()).slice(0, count);
@@ -214,7 +215,7 @@ export default function HomePage() {
                           {program.acf?.program_heading}
                         </h3>
                         <p className="text-primary-default font-medium text-sm mb-2">
-                          {program.acf?.start_date}
+                          {convertToNepaliDate(program.acf?.start_date)}
                         </p>
                         <p className="text-text-muted line-clamp-3">
                           {program.acf?.text_contents}

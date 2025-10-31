@@ -8,6 +8,7 @@ import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import Loading from "../components/ui/Loading";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { convertToNepaliDate } from "../lib/dateConverter";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sectionVariants = {
@@ -73,7 +74,7 @@ function ProgramDetailModal({ item, onClose, loading }) {
                 )}
                 <p className="text-secondary-default text-sm mb-4">
                   <strong>{t("common.date")}:</strong>{" "}
-                  {item.acf?.start_date} - {item.acf?.end_date}
+                  {convertToNepaliDate(item.acf?.start_date)} - {convertToNepaliDate(item.acf?.end_date)}
                 </p>
                 <div
                   className="prose prose-lg max-w-none text-text-secondary"
@@ -262,7 +263,7 @@ export default function ProgramsPage() {
                           {item.acf?.program_heading}
                         </h3>
                         <p className="text-text-muted text-sm mb-2">
-                          {item.acf?.start_date}
+                          {convertToNepaliDate(item.acf?.start_date)}
                         </p>
                         <div
                           className="text-text-secondary line-clamp-3"

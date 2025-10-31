@@ -8,6 +8,7 @@ import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import Loading from "../components/ui/Loading";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { convertToNepaliDate } from "../lib/dateConverter";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sectionVariants = {
@@ -72,7 +73,7 @@ function PressDetailModal({ item, onClose, loading }) {
                 )}
                 <p className="text-secondary-default text-sm mb-4">
                   {item.date
-                    ? new Date(item.date).toLocaleDateString()
+                    ? convertToNepaliDate(item.date)
                     : "Date N/A"}
                 </p>
                 <div
@@ -262,7 +263,7 @@ export default function PressReleasePage() {
                         </h3>
                         <p className="text-secondary-default text-sm mb-2">
                           {item.date
-                            ? new Date(item.date).toLocaleDateString()
+                            ? convertToNepaliDate(item.date)
                             : "Date N/A"}
                         </p>
                         <div

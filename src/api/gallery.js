@@ -4,8 +4,7 @@ import { apiRequest } from "./config";
  * Fetch paginated gallery images from programs.
  * @param {number} page
  * @param {number} perPage
- * @returns {Promise<{ items: Array, totalPages: number }>}
- */
+ * @returns {Promise<{ items: Array, totalPages: number }>}\n */
 export async function fetchGallery(page = 1, perPage = 12) {
   try {
     const { data, headers, error } = await apiRequest("/programs", {
