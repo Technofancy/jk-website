@@ -58,55 +58,55 @@ export default function HomePage() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const renderScrollCards = (items, type) => (
+   const renderProgramCard = (program) => (
     <motion.div
-      className="flex gap-4 overflow-x-auto pb-4 px-2 sm:px-4 scrollbar-hide snap-x snap-mandatory"
-      whileTap={{ cursor: "grabbing" }}
-      tabIndex="0"
+      key={program.id}
+      variants={itemVariants}
+      className="min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] snap-center flex-shrink-0"
     >
-      {items.map((item) => (
-        <motion.div
-          key={item.id}
-          variants={itemVariants}
-          className="min-w-[85%] sm:min-w-[45%] lg:min-w-[30%] snap-center flex-shrink-0"
-        >
-          <Link to={`/${type}/${item.slug}`}>
-            <Card className="h-full text-left hover:shadow-lg transition-shadow">
-              {type === "programs" && item.acf?.picture?.url && (
-                <img
-                  src={item.acf.picture.url}
-                  alt={item.acf.program_heading}
-                  className="w-full h-48 object-cover rounded-md mb-3"
-                />
-              )}
-              {type === "books" && item.imageUrl && (
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-48 object-cover rounded-md mb-3"
-                />
-              )}
-              <h3 className="text-xl font-bold text-text-default mb-2 line-clamp-2">
-                {type === "programs"
-                  ? item.acf?.program_heading
-                  : item.title}
-              </h3>
-              <p className="text-primary-default font-medium text-sm mb-2">
-                {type === "programs"
-                  ? convertToNepaliDate(item.acf?.start_date)
-                  : item.author}
-              </p>
-              <p className="text-text-muted line-clamp-3">
-                {type === "programs"
-                  ? item.acf?.text_contents
-                  : item.excerpt}
-              </p>
-            </Card>
-          </Link>
-        </motion.div>
-      ))}
+      <Link to={`/programs/${program.slug}`}>
+        <Card className="h-full text-left hover:shadow-lg transition-shadow p-1">
+          <img
+            src={program.acf?.picture?.url || "/placeholder.png"}
+            alt={program.acf?.program_heading || "Program image"}
+            className="w-full h-48 object-cover rounded-md mb-3"
+          />
+          <h3 className="text-xl font-bold text-text-default mb-2 line-clamp-2">
+            {program.acf?.program_heading || "Untitled Program"}
+
+          </h3>
+          <p className="text-primary-default font-medium text-sm mb-2">
+            {convertToNepaliDate(program.acf?.start_date)}
+          </p>
+        </Card>
+      </Link>
     </motion.div>
   );
+
+  const renderBookCard = (book) => (
+    <motion.div
+      key={book.id}
+      variants={itemVariants}
+      className="min-w-[70%] sm:min-w-[40%] md:min-w-[25%] lg:min-w-[20%] snap-center flex-shrink-0"
+    >
+      <Link to={`/books/${book.slug}`}>
+        <Card className="h-full text-left hover:shadow-lg transition-shadow flex flex-col p-1">
+          <div className="flex-grow flex items-center justify-center">
+            <img
+              src={book.imageUrl || "/placeholder.png"}
+              alt={book.title || "Book cover"}
+              className="max-h-56 w-auto object-contain rounded-md mb-3"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-text-default mt-2 line-clamp-2">
+            {book.title || "Untitled Book"}
+          </h3>
+          <p className="text-text-muted text-sm">{book.author}</p>
+        </Card>
+      </Link>
+    </motion.div>
+  );
+
 
   return (
     <>
@@ -203,7 +203,15 @@ export default function HomePage() {
           {errorPrograms && !loading && (
             <div className="py-10 text-error-default">{errorPrograms}</div>
           )}
-          {!loading && programs.length > 0 && renderScrollCards(programs, "programs")}
+          {!loading && programs.length > 0 && (
+            <motion.div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 sm:px-4 scrollbar-hide snap-x snap-mandatory"
+              whileTap={{ cursor: "grabbing" }}
+              tabIndex="0"
+            >
+              {programs.map(renderProgramCard)}
+            </motion.div>
+          )}
         </section>
 
         {/* Books Section */}
@@ -223,10 +231,18 @@ export default function HomePage() {
           {errorBooks && !loading && (
             <div className="py-10 text-error-default">{errorBooks}</div>
           )}
-          {!loading && books.length > 0 && renderScrollCards(books, "books")}
+          {!loading && books.length > 0 && (
+            <motion.div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 sm:px-4 scrollbar-hide snap-x snap-mandatory"
+              whileTap={{ cursor: "grabbing" }}
+              tabIndex="0"
+            >
+              {books.map(renderBookCard)}
+            </motion.div>
+          )}
         </section>
 
-        {/* Join Section */}
+        {/* Call to action Section */}
         <motion.section
           className="bg-primary-default text-text-on-primary p-8 mb-2 sm:p-12 rounded-lg text-center shadow-lg"
           variants={sectionVariants}
