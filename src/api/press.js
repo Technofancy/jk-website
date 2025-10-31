@@ -38,3 +38,35 @@ export async function fetchPress(page = 1, perPage = 9) {
 
   return { items, totalPages };
 }
+
+/**
+ * Fetch a single press release by slug.
+ * @param {string} slug The slug of the press release.
+ * @returns {Promise<object|null>}
+ */
+export async function fetchPressBySlug(slug) {
+  const { data, error } = await apiRequest("/press-releases", {
+    slug: slug,
+    _embed: true, // To get featured image
+  });
+
+  if (error || !data || data.length === 0) {
+    console.error(`Error fetching press release with slug ${slug}:`, error);
+    return null;
+  }
+
+  const item = data[0]; // The API returns an array, even for a single slug match
+
+  return {
+    id: item.id,
+    slug: item.slug,
+    title: item.acf?.subject || item.title?.rendered || "Untitled",
+    content: item.content?.rendered || "",
+    date: item.date,
+    acf: item.acf || {},
+    image:
+      item._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+      item.acf?.image_proof?.url ||
+      null,
+  };
+}
